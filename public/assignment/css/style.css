@@ -4,4 +4,20 @@ input.form-control {
 
 body {
     padding-top: 36px;
+    background-color: #E8EAF6;
+}
+
+/* Making the text color white on the blue bg*/
+.navbar-custom {
+    color: white;
+}
+
+/* Making the anchor for brand non-clickable*/
+.no-link {
+    pointer-events: none;
+}
+
+
+.glphi-white {
+    color : white;
 }
