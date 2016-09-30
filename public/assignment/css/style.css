@@ -4,7 +4,7 @@ input.form-control {
 
 body {
     padding-top: 36px;
-    background-color: #E8EAF6;
+    /*background-color: #E8EAF6;*/
 }
 
 /* Making the text color white on the blue bg*/
@@ -20,4 +20,8 @@ body {
 
 .glphi-white {
     color : white;
+}
+
+.row-space {
+    margin-top: 20px;
 }
