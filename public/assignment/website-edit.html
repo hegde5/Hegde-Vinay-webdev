@@ -8,23 +8,30 @@
     <title>Title</title>
 </head>
 
-<body>
+<body class="body-scrollable">
+
     <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="header">
-                <a href="website-list.html" class="navbar-text text-center pull-left">
-                    <span class="glyphicon glyphicon-menu-left glphi-white"></span>
+        <div class="navbar-text pull-left">
+            <a href="website-list.html" class="navbar-link">
+                <span class="glyphicon glyphicon-chevron-left glphi-white"></span>
+            </a>
+        </div>
+
+        <div class="header col-sm-3 hidden-xs">
+            <p class="navbar-brand">
+                <strong>Websites</strong>
+            </p>
+
+        </div>
+
+        <div class="col-sm-8 header">
+            <p class="navbar-brand glphi-white">
+                <strong>Edit Website</strong>
+            </p>
+            <div class="navbar-text pull-right">
+                <a href="website-list.html" class="navbar-link">
+                    <span class="glyphicon glyphicon-ok glphi-white"></span>
                 </a>
-
-                <p class="navbar-brand"><strong>Edit Website</strong></p>
-
-
-                <p class="navbar-text pull-right">
-                    <a href="#" class="navbar-link navbar-custom no-link">
-                        <span class="glyphicon glyphicon-ok">
-                        </span>
-                    </a>
-                </p>
             </div>
         </div>
     </nav>
@@ -33,48 +40,46 @@
         <br/><br/>
         <div class="col-xs-6 col-sm-4 hidden-xs">
             <div class="row row-space" >
-                <div class="col-xs-5">
-                    <a href="page-list.html">Address Book App</a>
+                <div class="col-xs-5 anchor-blue">
+                    <a href="page-list.html" class="no-underline">Address Book</a>
                 </div>
 
-                <div class="col-xs-1">
-                    <a href="website-edit.html" > <span class="glyphicon glyphicon-cog no-link"></span></a>
-                </div>
-            </div>
-
-            <div class="row row-space">
-                <div class="col-xs-5">
-                    <a href="page-list.html">Blogger</a>
-                </div>
-
-                <div class="col-xs-1">
+                <div class="col-xs-1 anchor-blue">
                     <a href="website-edit.html"> <span class="glyphicon glyphicon-cog no-link"></span></a>
                 </div>
             </div>
 
             <div class="row row-space">
-                <div class="col-xs-5">
-                    <a href="page-list.html">Blogging App</a>
+                <div class="col-xs-5 anchor-blue">
+                    <a href="page-list.html" class="no-underline">Blogger</a>
                 </div>
 
-                <div class="col-xs-1">
+                <div class="col-xs-1 anchor-blue">
+                    <a href="website-edit.html"> <span class="glyphicon glyphicon-cog no-link"></span></a>
+                </div>
+            </div>
+
+            <div class="row row-space">
+                <div class="col-xs-5 anchor-blue">
+                    <a href="page-list.html" class="no-underline">Blogging App</a>
+                </div>
+
+                <div class="col-xs-1 anchor-blue">
                     <a href="website-edit.html"> <span class="glyphicon glyphicon-cog no-link"></span></a>
                 </div>
 
             </div>
 
             <div class="row row-space">
-                <div class="col-xs-5">
-                    <a href="page-list.html">Script Testing App</a>
+                <div class="col-xs-5 anchor-blue">
+                    <a href="page-list.html" class="no-underline">Script Testing</a>
                 </div>
 
-                <div class="col-xs-1">
+                <div class="col-xs-1 anchor-blue">
                     <a href="website-edit.html"> <span class="glyphicon glyphicon-cog no-link"></span></a>
                 </div>
 
             </div>
-
-
         </div>
 
 
@@ -93,7 +98,7 @@ time-stamped entries. It was developed by Pyra Labs, which was bought by Google
 in 2003.
                     </textarea>
                 </div>
-                <a class="btn btn-danger btn-block" href="#">Delete</a>
+                <a class="btn btn-danger btn-block glphi-white" href="website-list.html">Delete</a>
 
             </form>
         </div>

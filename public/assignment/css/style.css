@@ -24,7 +24,11 @@ body {
 
 
 .glphi-white {
-    color : white;
+    color : white !important;
+}
+
+.anchor-blue {
+    color: #337AB7
 }
 
 .row-space {
@@ -56,6 +60,16 @@ body {
 .remove-right-padding {
     padding-right: 10px;
 }
+
+
+a, a:visited, a:hover, a:active {
+    color: inherit;
+}
+
+.no-underline {
+    text-decoration: none !important;
+}
+
 
 /*
 .h1-gizmodo {
