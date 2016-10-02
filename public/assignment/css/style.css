@@ -7,6 +7,11 @@ body {
     /*background-color: #E8EAF6;*/
 }
 
+.body-scrollable {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 /* Making the text color white on the blue bg*/
 .navbar-custom {
     color: white;
