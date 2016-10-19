@@ -40,17 +40,18 @@
 
         function findPageByWebsiteId(websiteId)
         {
+            var result = [];
             var page = null;
             for(var i in pages)
             {
                 page = pages[i];
                 if(page.websiteId === websiteId)
                 {
-                    return page;
+                    result.push(page);
                 }
 
             }
-            return null;
+            return result;
 
         }
 

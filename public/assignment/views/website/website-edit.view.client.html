@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
     <div class="navbar-text pull-left">
-        <a href="#/user/123/website" class="navbar-link">
+        <a href="#/user/{{model.userWebsite.developerId}}/website" class="navbar-link">
             <span class="glyphicon glyphicon-chevron-left glphi-white"></span>
         </a>
     </div>
@@ -17,7 +17,7 @@
             <strong>Edit Website</strong>
         </p>
         <div class="navbar-text pull-right">
-            <a href="#/user/123/website" class="navbar-link">
+            <a href="#/user/{{model.userWebsite.developerId}}/website" class="navbar-link">
                 <span class="glyphicon glyphicon-ok glphi-white"></span>
             </a>
         </div>
@@ -29,42 +29,42 @@
     <div class="col-xs-6 col-sm-4 hidden-xs">
         <div class="row row-space" >
             <div class="col-xs-5 anchor-blue">
-                <a href="#/user/123/website/123/page" class="no-underline">Address Book</a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Address Book</a>
             </div>
 
             <div class="col-xs-1 anchor-blue">
-                <a href="#/user/123/website/123"> <span class="glyphicon glyphicon-cog no-link"></span></a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
             </div>
         </div>
 
         <div class="row row-space">
             <div class="col-xs-5 anchor-blue">
-                <a href="#/user/123/website/123/page" class="no-underline">Blogger</a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Blogger</a>
             </div>
 
             <div class="col-xs-1 anchor-blue">
-                <a href="#/user/123/website/123"> <span class="glyphicon glyphicon-cog no-link"></span></a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
             </div>
         </div>
 
         <div class="row row-space">
             <div class="col-xs-5 anchor-blue">
-                <a href="#/user/123/website/123/page" class="no-underline">Blogging App</a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Blogging App</a>
             </div>
 
             <div class="col-xs-1 anchor-blue">
-                <a href="#/user/123/website/123"> <span class="glyphicon glyphicon-cog no-link"></span></a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
             </div>
 
         </div>
 
         <div class="row row-space">
             <div class="col-xs-5 anchor-blue">
-                <a href="#/user/123/website/123/page" class="no-underline">Script Testing</a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Script Testing</a>
             </div>
 
             <div class="col-xs-1 anchor-blue">
-                <a href="#/user/123/website/123"> <span class="glyphicon glyphicon-cog no-link"></span></a>
+                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
             </div>
 
         </div>
@@ -75,18 +75,18 @@
         <form>
             <div class="form-group">
                 <label for="Website-Name">Website Name</label>
-                <input type="text" class="form-control" id="Website-Name" placeholder="Name" value="Blogger">
+                <input type="text" ng-model="model.userWebsite.name" class="form-control" id="Website-Name" placeholder="Name" value="Blogger">
             </div>
 
             <div class="form-group">
                 <label for="Website-Description">Website Description</label>
-                <textarea class="form-control" rows="5" id="Website-Description" placeholder="Description">
+                <textarea class="form-control" ng-model="model.userWebsite.description" rows="5" id="Website-Description" placeholder="Description">
 Blogger is a blog-publishing service that allows multi-user blogs with the
 time-stamped entries. It was developed by Pyra Labs, which was bought by Google
 in 2003.
                     </textarea>
             </div>
-            <a class="btn btn-danger btn-block glphi-white" href="#/user/123/website">Delete</a>
+            <a class="btn btn-danger btn-block glphi-white" href="#/user/{{model.userWebsite.developerId}}/website">Delete</a>
 
         </form>
     </div>
@@ -96,7 +96,7 @@ in 2003.
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/user/123" class="navbar-text pull-right navbar-link">
+            <a href="#/user/{{model.userWebsite.developerId}}" class="navbar-text pull-right navbar-link">
                 <span class="glyphicon glyphicon-user glphi-white"></span>
             </a>
         </div>

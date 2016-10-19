@@ -74,6 +74,7 @@
                 if(user.username === username && user.password === password)
                 {
                     return user;
+                    
                 }
             }
             return null;

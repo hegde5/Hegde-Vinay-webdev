@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-text pull-left">
-        <a href="#/page-list" class="navbar-link">
+        <a href="#/user/{{model.userId}}/website/{{model.websitePage.websiteId}}/page" class="navbar-link">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
     </div>
@@ -17,7 +17,7 @@
             <strong>Edit Page</strong>
         </p>
         <div class="navbar-text pull-right">
-            <a href="#/page-list" class="navbar-link">
+            <a href="#/user/{{model.userId}}/website/{{model.websitePage.websiteId}}/page" class="navbar-link">
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
         </div>
@@ -90,12 +90,12 @@
             <form>
                 <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="text" class="form-control" id="Name" placeholder="Name" value="Blog Post">
+                    <input type="text" ng-model="model.websitePage.name" class="form-control" id="Name" placeholder="Name" value="Blog Post">
                 </div>
 
                 <div class="form-group">
                     <label for="title">Website Description</label>
-                    <input type="text" class="form-control" id="title" placeholder="Page Title" value="The Red Devils">
+                    <input type="text" ng-model="model.websitePage.description" class="form-control" id="title" placeholder="Page Title" value="The Red Devils">
                 </div>
                 <a class="btn btn-danger btn-block glphi-white" href="#/page-list">Delete</a>
 

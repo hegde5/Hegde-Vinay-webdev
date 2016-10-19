@@ -40,16 +40,17 @@
         
         function findWebsitesByUser(userId)
         {
+            var result = [];
             var website = null;
             for(var i in websites)
             {
                 website = websites[i];
                 if(website.developerId === userId)
                 {
-                    return website;
+                    result.push(website);
                 }
             }
-            return null;
+            return result;
             
         }
 

@@ -1,13 +1,20 @@
 <div class="container">
+
+    <div class="alert alert-danger" ng-show="model.error" role="alert">
+        {{model.error}}
+    </div>
+
     <h1>Login</h1>
     <input type="text"
+           ng-model = "model.username"
            class="form-control"
            placeholder="Username"/>
     <input type="password"
+           ng-model = "model.password"
            class="form-control"
            placeholder="Password"/>
     <a class="btn btn-primary btn-block glphi-white"
-       href="#/user/123">Login</a>
+       ng-click="model.login(model.username,model.password)">Login</a>
     <a class="btn btn-success btn-block glphi-white"
        href="#/register">Register</a>
 </div>
