@@ -1,13 +1,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/user/123/website" class="navbar-text text-center pull-left">
+            <a href="#/user/{{model.userId}}/website" class="navbar-text text-center pull-left">
                 <span class="glyphicon glyphicon-menu-left"></span>
             </a>
 
             <p class="navbar-brand"><strong>Pages</strong></p>
 
-            <a href="#/user/123/website/123/page/new" class="navbar-text pull-right navbar-link">
+
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="navbar-text pull-right navbar-link">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
 
@@ -17,41 +18,13 @@
 
 <br/><br/>
 <div class="container-fluid">
+
     <div class="row row-space" >
-        <div class="col-xs-12 anchor-blue">
-            <a href="#/user/123/website/123/page/123/widget" class="no-underline">Blog Post</a>
-            <a href="#/user/123/website/123/page/123" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
+        <div ng-repeat="page in model.websitePages" class="col-xs-12 anchor-blue">
+            <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget" class="no-underline">{{page.name}}</a>
+            <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
         </div>
     </div>
-
-    <div class="row row-space">
-        <div class="col-xs-12 anchor-blue">
-            <a href="#/user/123/website/123/page/123/widget" class="no-underline">Blogs</a>
-            <a href="#/user/123/website/123/page/123"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
-        </div>
-    </div>
-
-    <div class="row row-space">
-        <div class="col-xs-12 anchor-blue">
-            <a href="#/user/123/website/123/page/123/widget" class="no-underline">Home</a>
-            <a href="#/user/123/website/123/page/123"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
-        </div>
-    </div>
-
-    <div class="row row-space">
-        <div class="col-xs-12 anchor-blue">
-            <a href="#/user/123/website/123/page/123/widget" class="no-underline">About</a>
-            <a href="#/user/123/website/123/page/123"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
-        </div>
-    </div>
-
-    <div class="row row-space">
-        <div class="col-xs-12 anchor-blue">
-            <a href="#/user/123/website/123/page/123/widget" class="no-underline">Contact Us</a>
-            <a href="#/user/123/website/123/page/123"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
-        </div>
-    </div>
-
 
 </div>
 
@@ -60,7 +33,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/user/123" class="navbar-text pull-right navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-text pull-right navbar-link">
                 <span class="glyphicon glyphicon-user anchor-blue"></span>
             </a>
         </div>

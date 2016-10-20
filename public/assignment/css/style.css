@@ -22,6 +22,9 @@ body {
     pointer-events: none;
 }
 
+.tick-mark {
+    pointer: cursor;
+}
 
 .glphi-white {
     color : white !important;

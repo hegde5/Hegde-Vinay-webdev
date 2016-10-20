@@ -30,12 +30,18 @@
         
         function createWebsite(userId, website)
         {
-            if(website != null)
+            var eachWebsite = null;
+            for(var i in websites)
             {
-                website.developerId = userId;
-                websites.push(website);
+                eachWebsite = websites[i];
+                if(eachWebsite.developerId === userId &&
+                        eachWebsite.name === website.name)
+                    return false;
             }
-
+            website.developerId = userId;
+            website._id = (new Date().getTime()).toString();
+            websites.push(website);
+            return true;
         }
         
         function findWebsitesByUser(userId)
@@ -71,6 +77,7 @@
         
         function updateWebsite(websiteId, website)
         {
+
             var eachWebsite = null;
             for(var i in websites)
             {
@@ -78,8 +85,10 @@
                 if(websiteId === eachWebsite._id)
                 {
                     websites[i] = website;
+                    return true;
                 }
             }
+            return false;
             
         }
         
@@ -92,8 +101,10 @@
                 if(website._id === websiteId)
                 {
                     websites.splice(i,1);
+                    return true;
                 }
             }
+            return false;
             
         }
 

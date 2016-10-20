@@ -30,12 +30,22 @@
 
         function createPage(websiteId, page)
         {
-            if(page != null)
+
+            var eachPage = null;
+            for(var i in pages)
             {
-                page.websiteId = websiteId;
-                pages.push(page);
+                eachPage = pages[i];
+                if(eachPage.websiteId === websiteId &&
+                eachPage.name === page.name)
+                    return false;
+
             }
-            
+            page.websiteId = websiteId;
+            page._id = (new Date().getTime()).toString();
+            pages.push(page);
+            return true;
+
+
         }
 
         function findPageByWebsiteId(websiteId)
@@ -79,9 +89,11 @@
                 if(eachPage._id === pageId)
                 {
                     pages[i] = page;
+                    return true;
                 }
 
             }
+            return false;
 
         }
         
@@ -95,8 +107,11 @@
                 if(page._id == pageId)
                 {
                     pages.splice(i,1);
+                    return true;
                 }
             }
+            return false;
+
         }
 
 

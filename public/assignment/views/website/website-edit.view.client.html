@@ -17,7 +17,7 @@
             <strong>Edit Website</strong>
         </p>
         <div class="navbar-text pull-right">
-            <a href="#/user/{{model.userWebsite.developerId}}/website" class="navbar-link">
+            <a class="navbar-link tick-mark" ng-click="model.updateCurrentWebsite();">
                 <span class="glyphicon glyphicon-ok glphi-white"></span>
             </a>
         </div>
@@ -25,70 +25,40 @@
 </nav>
 
 <div class="container-fluid">
-    <br/><br/>
-    <div class="col-xs-6 col-sm-4 hidden-xs">
-        <div class="row row-space" >
-            <div class="col-xs-5 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Address Book</a>
+    <br/>
+        <div class="row" >
+            <div class="col-xs-6 col-sm-4 hidden-xs">
+                <div class="row" >
+                    <div ng-repeat="eachWebsite in model.userWebsites" class="col-xs-12 anchor-blue row-space">
+                        <a href="#/user/{{eachWebsite.developerId}}/website/{{eachWebsite._id}}/page" class="no-underline">{{eachWebsite.name}}</a>
+                        <a href="#/user/{{eachWebsite.developerId}}/website/{{eachWebsite._id}}" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="col-xs-1 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
+            <div class="col-xs-12 col-sm-8">
+                <div class="alert alert-danger" ng-show="model.error" role="alert">
+                    {{model.error}}
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="Website-Name">Website Name</label>
+                        <input type="text" ng-model="model.userWebsite.name" class="form-control" id="Website-Name" placeholder="Name" value="Blogger">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Website-Description">Website Description</label>
+                        <textarea class="form-control" ng-model="model.userWebsite.description" rows="5" id="Website-Description" placeholder="Description">
+        Blogger is a blog-publishing service that allows multi-user blogs with the
+        time-stamped entries. It was developed by Pyra Labs, which was bought by Google
+        in 2003.
+                            </textarea>
+                    </div>
+                    <a class="btn btn-danger btn-block glphi-white" ng-click="model.deleteCurrentWebsite(model.currentWebsiteId)">Delete</a>
+
+                </form>
             </div>
-        </div>
-
-        <div class="row row-space">
-            <div class="col-xs-5 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Blogger</a>
-            </div>
-
-            <div class="col-xs-1 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
-            </div>
-        </div>
-
-        <div class="row row-space">
-            <div class="col-xs-5 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Blogging App</a>
-            </div>
-
-            <div class="col-xs-1 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
-            </div>
-
-        </div>
-
-        <div class="row row-space">
-            <div class="col-xs-5 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}/page" class="no-underline">Script Testing</a>
-            </div>
-
-            <div class="col-xs-1 anchor-blue">
-                <a href="#/user/{{model.userWebsite.developerId}}/website/{{model.userWebsite._id}}"> <span class="glyphicon glyphicon-cog no-link"></span></a>
-            </div>
-
-        </div>
-    </div>
-
-
-    <div class="col-xs-12 col-sm-8">
-        <form>
-            <div class="form-group">
-                <label for="Website-Name">Website Name</label>
-                <input type="text" ng-model="model.userWebsite.name" class="form-control" id="Website-Name" placeholder="Name" value="Blogger">
-            </div>
-
-            <div class="form-group">
-                <label for="Website-Description">Website Description</label>
-                <textarea class="form-control" ng-model="model.userWebsite.description" rows="5" id="Website-Description" placeholder="Description">
-Blogger is a blog-publishing service that allows multi-user blogs with the
-time-stamped entries. It was developed by Pyra Labs, which was bought by Google
-in 2003.
-                    </textarea>
-            </div>
-            <a class="btn btn-danger btn-block glphi-white" href="#/user/{{model.userWebsite.developerId}}/website">Delete</a>
-
-        </form>
     </div>
 </div>
 

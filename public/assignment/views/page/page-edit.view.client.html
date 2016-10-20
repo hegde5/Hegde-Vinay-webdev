@@ -17,7 +17,7 @@
             <strong>Edit Page</strong>
         </p>
         <div class="navbar-text pull-right">
-            <a href="#/user/{{model.userId}}/website/{{model.websitePage.websiteId}}/page" class="navbar-link">
+            <a ng-click="model.updateCurrentPage()" class="navbar-link">
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
         </div>
@@ -29,64 +29,20 @@
     <br/>
     <div class="row">
         <div class="col-xs-6 col-sm-4 hidden-xs">
+
             <div class="row row-space" >
-                <div class="col-xs-5 anchor-blue">
-                    <a href="#/widget-list" class="no-underline">Blog Post</a>
-                </div>
-
-                <div class="col-xs-1 anchor-blue">
-                    <a href="#/page-edit" > <span class="glyphicon glyphicon-cog"></span></a>
+                <div ng-repeat="page in model.websitePagesonEdit" class="col-xs-12 anchor-blue">
+                    <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget" class="no-underline">{{page.name}}</a>
+                    <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
                 </div>
             </div>
-
-            <div class="row row-space">
-                <div class="col-xs-5 anchor-blue">
-                    <a href="#/widget-list" class="no-underline">Blogs</a>
-                </div>
-
-                <div class="col-xs-1 anchor-blue">
-                    <a href="#/page-edit"> <span class="glyphicon glyphicon-cog"></span></a>
-                </div>
-            </div>
-
-            <div class="row row-space">
-                <div class="col-xs-5 anchor-blue">
-                    <a href="#/widget-list" class="no-underline">Home</a>
-                </div>
-
-                <div class="col-xs-1 anchor-blue">
-                    <a href="#/page-edit"> <span class="glyphicon glyphicon-cog"></span></a>
-                </div>
-
-            </div>
-
-            <div class="row row-space">
-                <div class="col-xs-5 anchor-blue">
-                    <a href="#/widget-list" class="no-underline">About</a>
-                </div>
-
-                <div class="col-xs-1 anchor-blue">
-                    <a href="#/page-edit"> <span class="glyphicon glyphicon-cog"></span></a>
-                </div>
-
-            </div>
-
-            <div class="row row-space">
-                <div class="col-xs-5 anchor-blue">
-                    <a href="#/widget-list" class="no-underline">Contact Us</a>
-                </div>
-
-                <div class="col-xs-1 anchor-blue">
-                    <a href="#/page-edit"> <span class="glyphicon glyphicon-cog"></span></a>
-                </div>
-
-            </div>
-
-
         </div>
 
 
         <div class="col-xs-12 col-sm-8">
+            <div class="alert alert-danger" ng-show="model.error" role="alert">
+                {{model.error}}
+            </div>
             <form>
                 <div class="form-group">
                     <label for="Name">Name</label>
@@ -97,7 +53,8 @@
                     <label for="title">Website Description</label>
                     <input type="text" ng-model="model.websitePage.description" class="form-control" id="title" placeholder="Page Title" value="The Red Devils">
                 </div>
-                <a class="btn btn-danger btn-block glphi-white" href="#/page-list">Delete</a>
+
+                <a class="btn btn-danger btn-block glphi-white" ng-click="model.deleteCurrentPage(model.pageId)">Delete</a>
 
             </form>
         </div>
@@ -109,7 +66,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/profile" class="navbar-text pull-right navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-text pull-right navbar-link">
                 <span class="glyphicon glyphicon-user anchor-blue"></span>
             </a>
         </div>
