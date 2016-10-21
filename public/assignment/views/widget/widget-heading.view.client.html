@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/user/123/website/123/page/123/widget" class="navbar-text text-center pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pid}}/widget" class="navbar-text text-center pull-left">
                 <span class="glyphicon glyphicon-menu-left"></span>
             </a>
 
@@ -9,7 +9,7 @@
 
 
             <p class="navbar-text pull-right">
-                <a href="#/user/123/website/123/page/123/widget" class="navbar-link navbar-custom">
+                <a ng-click="model.updateCurrentWidget()" class="navbar-link navbar-custom">
                         <span class="glyphicon glyphicon-ok">
                         </span>
                 </a>
@@ -23,20 +23,20 @@
     <form>
         <div class="form-group">
             <label for="Name">Name</label>
-            <input type="text" class="form-control" id="Name" placeholder="Name" value="">
+            <input type="text" class="form-control" id="Name" placeholder="Name">
         </div>
 
         <div class="form-group">
             <label for="title">Website Description</label>
-            <input type="text" class="form-control" id="title" placeholder="Page Title" value="Manchester United face Stoke City at Old Trafford on Sunday">
+            <input type="text" ng-model="model.widget.text" class="form-control" id="title" placeholder="Page Title">
         </div>
 
         <div class="form-group">
             <label for="size">Size</label>
-            <input type="number" class="form-control" id="size" value="3">
+            <input type="number" ng-model="model.widget.size" class="form-control" id="size" >
 
         </div>
-        <a class="btn btn-danger btn-block glphi-white" href="#/user/123/website/123/page/123/widget">Delete</a>
+        <a class="btn btn-danger btn-block glphi-white" ng-click="model.deleteCurrentWidget();">Delete</a>
 
     </form>
 </div>
@@ -47,7 +47,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/user/123" class="navbar-text pull-right navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-text pull-right navbar-link">
                 <span class="glyphicon glyphicon-user anchor-blue"></span>
             </a>
         </div>

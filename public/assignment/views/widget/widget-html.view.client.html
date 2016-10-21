@@ -1,0 +1,33 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="header">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pid}}/widget" class="navbar-text text-center pull-left">
+                <span class="glyphicon glyphicon-menu-left"></span>
+            </a>
+
+            <p class="navbar-brand"><strong>Widget Edit</strong></p>
+
+
+            <p class="navbar-text pull-right">
+                <a ng-click="model.updateCurrentWidget()" class="navbar-link navbar-custom">
+                        <span class="glyphicon glyphicon-ok">
+                        </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <br/>
+    <form>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <textarea class="form-control" ng-model="model.widget.text" id="text" placeholder="Text goes here"></textarea>
+        </div>
+    </form>
+
+    <a class="btn btn-danger btn-block"
+       ng-click="model.deleteCurrentWidget();">Delete</a>
+</div>

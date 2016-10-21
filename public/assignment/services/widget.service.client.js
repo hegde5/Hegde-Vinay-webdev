@@ -33,10 +33,17 @@
 
         function createWidget(pageId, widget)
         {
-            if(widget != null)
+            var eachWidget = widgets;
+            for(var i in widgets)
             {
-                widget.pageId = pageId;
-                widgets.push(widget);
+                eachWidget = widgets[i];
+                if(eachWidget.pageId === pageId)
+                {
+                    widget.pageId = pageId;
+                    widget._id = (new Date().getTime()).toString();
+                    widgets.push(widget);
+                    return widget._id;
+                }
             }
         }
         
@@ -55,25 +62,33 @@
 
         function findWidgetsByPageId(pageId)
         {
+            var result = [];
             var widget = null;
             for(var i in widgets)
             {
                 widget = widgets[i];
                 if(widget.pageId === pageId)
-                    return widget;
+                {
+                    result.push(widget);
+                }
             }
-            return null;
+            return result;
         }
         
         function updateWidget(widgetId, widget)
         {
+
             var eachWidget = null;
             for(var i in widgets)
             {
                 eachWidget = widgets[i];
                 if(eachWidget._id === widgetId)
+                {
                     widgets[i] = widget;
+                    return true;
+                }
             }
+            return false;
             
         }
 
