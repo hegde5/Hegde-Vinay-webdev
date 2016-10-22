@@ -33,20 +33,14 @@
 
         function createWidget(pageId, widget)
         {
-            var eachWidget = widgets;
-            for(var i in widgets)
-            {
-                eachWidget = widgets[i];
-                if(eachWidget.pageId === pageId)
-                {
-                    widget.pageId = pageId;
-                    widget._id = (new Date().getTime()).toString();
-                    widgets.push(widget);
-                    return widget._id;
-                }
-            }
+
+            var eachWidget = null;
+            widget.pageId = pageId;
+            widget._id = (new Date().getTime()).toString();
+            widgets.push(widget);
+            return widget._id;
         }
-        
+
         function findWidgetById(widgetId)
         {
             var widget = null;
@@ -84,12 +78,39 @@
                 eachWidget = widgets[i];
                 if(eachWidget._id === widgetId)
                 {
-                    widgets[i] = widget;
+                    var updatedWidget = UpdateFieldsOnWidgetType(widgets[i],widget);
+                    widgets[i] = updatedWidget;
                     return true;
                 }
             }
             return false;
             
+        }
+
+        function UpdateFieldsOnWidgetType(widget,currentWidget)
+        {
+            if(currentWidget.widgetType === "HEADER")
+            {
+                widget.text = currentWidget.text;
+                widget.size = currentWidget.size;
+            }
+            else if(currentWidget.widgetType === "IMAGE")
+            {
+                widget.width = currentWidget.width;
+                widget.url = currentWidget.url;
+            }
+            else if(currentWidget.widgetType === "HTML")
+            {
+                widget.text = currentWidget.text;
+
+            }
+            else
+            {
+                widget.url = currentWidget.url;
+                widget.width = currentWidget.width;
+            }
+
+            return widget;
         }
 
         function deleteWidget(widgetId)

@@ -1,16 +1,22 @@
 <div class="container">
     <h1>Register</h1>
+    <div class="alert alert-danger" ng-show="model.error" role="alert">
+        {{model.error}}
+    </div>
     <input type="text"
            class="form-control"
+           ng-model="model.user.username"
            placeholder="Username"/>
     <input type="password"
            class="form-control"
+           ng-model="model.user.password"
            placeholder="Password"/>
     <input type="password"
            class="form-control"
+           ng-model="model.user.confirmPassword"
            placeholder="Confirm password"/>
     <a class="btn btn-primary btn-block glphi-white"
-       href="#/user/123">Register</a>
+       ng-click="model.register(model.user)">Register</a>
     <a class="btn btn-danger  btn-block glphi-white"
        href="#/login">Cancel</a>
 </div>

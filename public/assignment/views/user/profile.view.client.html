@@ -7,7 +7,7 @@
 
 
             <p class="navbar-text pull-right">
-                <a href="#/user/{{model.user._id}}" class="navbar-link navbar-custom">
+                <a ng-click="model.updateProfile()" class="navbar-link navbar-custom">
                     <span class="glyphicon glyphicon-ok">
                     </span>
                 </a>
@@ -18,7 +18,12 @@
 
 
 <div class="container">
-
+    <div class="alert alert-success" ng-show="model.success" role="alert">
+        {{model.success}}
+    </div>
+    <div class="alert alert-danger" ng-show="model.error" role="alert">
+        {{model.error}}
+    </div>
 
     <form>
         <br/>

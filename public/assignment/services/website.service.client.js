@@ -30,6 +30,7 @@
         
         function createWebsite(userId, website)
         {
+
             var eachWebsite = null;
             for(var i in websites)
             {

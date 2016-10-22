@@ -29,10 +29,20 @@
 
         function createUser(user)
         {
-            if(user != null)
+            var eachUser = null;
+            for(var i in users)
             {
-                users.push(user);
+                eachUser = users[i];
+                if(eachUser.username === user.username)
+                {
+                    //User already exists.
+                    return false;
+                }
             }
+            user._id = (new Date().getTime()).toString();
+            delete user.confirmPassword;
+            users.push(user);
+            return true;
         }
 
         function findUserById(userId)
@@ -90,8 +100,10 @@
                 if(userId === eachUser._id)
                 {
                     users[i] = user;
+                    return true;
                 }
             }
+            return false;
         }
 
         function deleteUser(userId)

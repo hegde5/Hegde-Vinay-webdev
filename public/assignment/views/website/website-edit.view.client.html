@@ -17,7 +17,7 @@
             <strong>Edit Website</strong>
         </p>
         <div class="navbar-text pull-right">
-            <a class="navbar-link tick-mark" ng-click="model.updateCurrentWebsite();">
+            <a class="navbar-link make-pointer" ng-click="model.updateCurrentWebsite();">
                 <span class="glyphicon glyphicon-ok glphi-white"></span>
             </a>
         </div>
@@ -50,10 +50,8 @@
                     <div class="form-group">
                         <label for="Website-Description">Website Description</label>
                         <textarea class="form-control" ng-model="model.userWebsite.description" rows="5" id="Website-Description" placeholder="Description">
-        Blogger is a blog-publishing service that allows multi-user blogs with the
-        time-stamped entries. It was developed by Pyra Labs, which was bought by Google
-        in 2003.
-                            </textarea>
+
+                        </textarea>
                     </div>
                     <a class="btn btn-danger btn-block glphi-white" ng-click="model.deleteCurrentWebsite(model.currentWebsiteId)">Delete</a>
 

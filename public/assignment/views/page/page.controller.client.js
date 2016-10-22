@@ -35,6 +35,11 @@
 
         function createPage()
         {
+            if(vm.currentPage === undefined)
+            {
+                vm.error = "Please enter a Page Name";
+                return;
+            }
 
             if(PageService.createPage(vm.currentWebsiteId, vm.currentPage))
             {

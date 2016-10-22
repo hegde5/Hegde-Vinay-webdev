@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top widget-list">
     <div class="container-fluid">
         <div class="header">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-text text-center pull-left">
@@ -14,7 +14,7 @@
         </div>
     </div>
 </nav>
-
+<br/>
 <div class="container-fluid">
     <div class="list-group">
         <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
@@ -29,10 +29,10 @@
                         <h6 ng-switch-when="6">{{widget.text}}</h6>
                     </div>
                     <div ng-switch-when="YOUTUBE">
-                        <iframe class="video-responsive" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="{{widget.width}}" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div ng-switch-when="IMAGE">
-                        <img class="img-responsive" width="{{widget.width}}" ng-src="{{widget.url}}"/>
+                        <img width="{{widget.width}}" ng-src="{{widget.url}}"/>
                     </div>
                     <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget);">
 
@@ -59,7 +59,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/user/123" class="navbar-text pull-right navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-text pull-right navbar-link">
                 <span class="glyphicon glyphicon-user anchor-blue"></span>
             </a>
         </div>

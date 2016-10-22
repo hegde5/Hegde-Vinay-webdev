@@ -33,6 +33,12 @@
 
         function createWebsite()
         {
+            if(vm.website === undefined)
+            {
+                vm.error = "Please enter a Website Name";
+                return;
+            }
+
             if(WebsiteService.createWebsite(vm.userId, vm.website))
             {
                 $location.url("/user/"+userId + "/website/");

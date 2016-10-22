@@ -31,6 +31,8 @@
         function checkSafeYouTubeUrl(url)
         {
 
+            if(url === undefined)
+                return;
             var parts = url.split('/');
             var id = parts[parts.length - 1];
             url = "https://www.youtube.com/embed/" + id;
@@ -65,8 +67,8 @@
             if(widgetType === "HEADER" || widgetType === "IMAGE" || widgetType === "HTML" || widgetType === "YOUTUBE")
             {
                 var widget = {};
-                var newWgid = WidgetService.createWidget(pageId,widget);
                 widget.widgetType = widgetType;
+                var newWgid = WidgetService.createWidget(pageId,widget);
                 $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+newWgid);
             }
             else

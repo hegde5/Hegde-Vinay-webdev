@@ -73,6 +73,9 @@ a, a:visited, a:hover, a:active {
     text-decoration: none !important;
 }
 
+.make-pointer {
+    cursor: pointer !important;
+}
 
 /*
 .h1-gizmodo {
