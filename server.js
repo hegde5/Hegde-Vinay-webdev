@@ -10,6 +10,8 @@ app.use(express.static(__dirname + '/public'));
 
 require ("./test/app.js")(app);
 
+require("./public/assignment/app.js")(app);
+
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 //Heroku dynamically assigns the port. Need to fetch from env. 3000 port works locally
 //var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;

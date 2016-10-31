@@ -7,7 +7,7 @@
         .module("WebAppMaker")
         .factory("UserService", UserService);
 
-    function UserService()
+    function UserService($http)
     {
         var users = [
             {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
@@ -47,16 +47,18 @@
 
         function findUserById(userId)
         {
-            var user = null;
-            for(var i in users)
-            {
-                user = users[i];
-                if( userId === user._id)
-                {
-                    return user;
-                }
-            }
-            return null;
+            var url = '/api/user/' + userId;
+            return $http.get(url);
+            // var user = null;
+            // for(var i in users)
+            // {
+            //     user = users[i];
+            //     if( userId === user._id)
+            //     {
+            //         return user;
+            //     }
+            // }
+            // return null;
 
         }
 
@@ -77,17 +79,19 @@
 
         function findUserByCredentials(username, password)
         {
-            var user = null;
-            for(var i in users)
-            {
-                user = users[i];
-                if(user.username === username && user.password === password)
-                {
-                    return user;
-                    
-                }
-            }
-            return null;
+            var url = '/api/user?username='+username+'&password='+password;
+            return  $http.get(url);
+            // var user = null;
+            // for(var i in users)
+            // {
+            //     user = users[i];
+            //     if(user.username === username && user.password === password)
+            //     {
+            //         return user;
+            //
+            //     }
+            // }
+            // return null;
 
         }
 

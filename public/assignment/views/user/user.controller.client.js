@@ -21,11 +21,17 @@
                 vm.error = "Please enter Username and Password";
                 return;
             }
-            var user = UserService.findUserByCredentials(username,password);
-            if(user === null || user === undefined)
-                vm.error = "No such user or the username,password does not match";
-            else
-                $location.url("user/" + user._id);
+            var promise = UserService.findUserByCredentials(username,password);
+            promise
+                .success(function(user){
+                    if(user === '0')
+                        vm.error = "No such user or the username,password does not match";
+                    else
+                        $location.url("user/" + user._id);
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
         }
 
 
@@ -75,14 +81,20 @@
     {
         var vm = this;
         var userId = $routeParams.uid;
-        var user = UserService.findUserById(userId);
-        vm.userId = userId;
-        vm.updateProfile = updateProfile;
+        var promise = UserService.findUserById(userId);
+        promise
+            .success(function (user) {
+                vm.userId = userId;
+                vm.updateProfile = updateProfile;
 
-        if(user != null || user != undefined)
-        {
-            vm.user = user;
-        }
+                if(user != '0')
+                {
+                    vm.user = user;
+                }
+            })
+            .error(function (error) {
+                console.log(error);
+            });
 
         function updateProfile()
         {
