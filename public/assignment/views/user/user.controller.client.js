@@ -58,20 +58,29 @@
             {
                 vm.error = "Passwords do not match!";
             }
-            else
-            {
-                if(UserService.createUser(user))
-                {
-                    var updatedUser = UserService.findUserByUsername(user.username);
-                    var userId = updatedUser._id;
-                    $location.url('/user/'+userId);
-                }
-                else
-                {
-                    vm.error = "Please choose a different username, this username already exists!"
-                }
 
-            }
+            UserService
+                .createUser(user)
+                .success(function(userObj){
+
+                        var userId = userObj._id;
+                        $location.url('/user/'+userId);
+                        // if(UserService.createUser(user))
+                        // {
+                        //     var updatedUser = UserService.findUserByUsername(user.username);
+                        //     console.log(updatedUser);
+                        //     var userId = updatedUser._id;
+                        //     $location.url('/user/'+userId);
+                        // }
+                        // else
+                        // {
+                        //     vm.error = "Please choose a different username, this username already exists!"
+                        // }
+                    
+                })
+                .error(function (error) {
+                    vm.error = "Please choose a different username, this username already exists!"
+                });
         }
 
 

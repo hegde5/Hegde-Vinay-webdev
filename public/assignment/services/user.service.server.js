@@ -11,10 +11,33 @@ module.exports = function (app) {
         {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
     ];
 
-    app.get('/api/user', createUser1);
+    app.post('/api/user', createUser);
+    app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
 
-    function createUser1(req, res) {
+
+    function createUser(req, res) {
+        var user = req.body;
+        user._id = ((new Date()).getTime()).toString();
+
+        var eachUser = null;
+        for(var i in users)
+        {
+            eachUser = users[i];
+            if(eachUser.username === user.username)
+            {
+                //User already exists.
+                res.send('0');
+            }
+        }
+        delete user.confirmPassword;
+        users.push(user);
+        res.send(user);
+
+    }
+
+
+    function findUser(req, res) {
         var params = req.params;
         var query = req.query;
         if(query.password && query.username)
@@ -80,25 +103,6 @@ module.exports = function (app) {
         res.send('0');
     }
 
-
-    function createUser(user)
-    {
-        res.send(users);
-        var eachUser = null;
-        for(var i in users)
-        {
-            eachUser = users[i];
-            if(eachUser.username === user.username)
-            {
-                //User already exists.
-                return false;
-            }
-        }
-        user._id = (new Date().getTime()).toString();
-        delete user.confirmPassword;
-        users.push(user);
-        return true;
-    }
 
 
 }

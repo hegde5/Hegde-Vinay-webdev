@@ -29,37 +29,17 @@
 
         function createUser(user)
         {
-            var eachUser = null;
-            for(var i in users)
-            {
-                eachUser = users[i];
-                if(eachUser.username === user.username)
-                {
-                    //User already exists.
-                    return false;
-                }
-            }
-            user._id = (new Date().getTime()).toString();
-            delete user.confirmPassword;
-            users.push(user);
-            return true;
+            var userObj = {
+                username: user.username,
+                password: user.password
+            };
+            return $http.post("/api/user", userObj);
         }
 
         function findUserById(userId)
         {
             var url = '/api/user/' + userId;
             return $http.get(url);
-            // var user = null;
-            // for(var i in users)
-            // {
-            //     user = users[i];
-            //     if( userId === user._id)
-            //     {
-            //         return user;
-            //     }
-            // }
-            // return null;
-
         }
 
         function findUserByUsername(username)
@@ -81,17 +61,6 @@
         {
             var url = '/api/user?username='+username+'&password='+password;
             return  $http.get(url);
-            // var user = null;
-            // for(var i in users)
-            // {
-            //     user = users[i];
-            //     if(user.username === username && user.password === password)
-            //     {
-            //         return user;
-            //
-            //     }
-            // }
-            // return null;
 
         }
 
