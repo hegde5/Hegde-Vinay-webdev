@@ -17,8 +17,14 @@
         vm.userId = userId;
         vm.websiteId = websiteId;
 
-        var websitePages = PageService.findPageByWebsiteId(websiteId);
-        vm.websitePages = websitePages;
+        var promise = PageService.findPageByWebsiteId(websiteId);
+        promise
+            .success(function (websitePages) {
+                vm.websitePages = websitePages;
+            })
+            .error(function (error) {
+                console.log(error);
+            });
 
     }
 
@@ -27,11 +33,23 @@
         var vm = this;
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
-        var websitePages = PageService.findPageByWebsiteId(websiteId);
         vm.userId = userId;
-        vm.websitePages = websitePages;
         vm.currentWebsiteId = websiteId;
         vm.createPage = createPage;
+
+
+        function init() {
+
+            PageService
+                .findPageByWebsiteId(websiteId)
+                .success(function (websitePages) {
+                    vm.websitePages = websitePages;
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
+        }
+        init();
 
         function createPage()
         {
@@ -41,15 +59,15 @@
                 return;
             }
 
-            if(PageService.createPage(vm.currentWebsiteId, vm.currentPage))
-            {
-                $location.url("/user/"+userId + "/website/" + websiteId + "/page");
-            }
-            else
-            {
-                vm.error = "Page with same name exists. Please choose a different name";
-            }
-
+            PageService
+                .createPage(vm.currentWebsiteId, vm.currentPage)
+                .success(function () {
+                    $location.url("/user/"+userId + "/website/" + websiteId + "/page");
+                })
+                .error(function (error) {
+                    console.log(error);
+                    vm.error = "Page with same name exists. Please choose a different name";
+                });
         }
 
 
@@ -61,44 +79,55 @@
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
         var pageId = $routeParams.pid;
+        vm.userId = userId;
+        vm.pageId = pageId;
         vm.deleteCurrentPage = deleteCurrentPage;
         vm.updateCurrentPage = updateCurrentPage;
 
-        vm.userId = userId;
-        vm.pageId = pageId;
-
-        var websitePages = PageService.findPageByWebsiteId(websiteId);
-        vm.websitePagesonEdit = websitePages;
-
-        for(var i in websitePages)
-        {
-            if(pageId === websitePages[i]._id)
-            {
-                vm.websitePage =  websitePages[i];
-                break;
-            }
-
+        function init() {
+            var promise = PageService.findPageByWebsiteId(websiteId);
+            promise
+                .success(function (websitePages) {
+                    vm.websitePagesonEdit = websitePages;
+                    for(var i in websitePages)
+                    {
+                        if(pageId === websitePages[i]._id)
+                        {
+                            vm.websitePage =  websitePages[i];
+                            break;
+                        }
+                    }
+                })
+                .error(function (error) {
+                    console.log(error);
+                })
         }
+        init();
 
         function deleteCurrentPage(pageId)
         {
-            PageService.deletePage(pageId);
-
-            $location.url("/user/"+userId + "/website/"+websiteId+"/page");
-
+            PageService
+                .deletePage(pageId)
+                .success(function () {
+                    $location.url("/user/"+userId + "/website/"+websiteId+"/page");
+                })
+                .error(function (error) {
+                    console.log(error);
+                    vm.error = "Sorry! Could not delete the page";
+                })
         }
 
         function updateCurrentPage()
         {
-            if(PageService.updatePage(vm.websitePage._id,vm.websitePage))
-            {
-                $location.url("/user/"+userId + "/website/" + websiteId + "/page");
-            }
-            else
-            {
-                vm.error = "Sorry! Could not update the page";
-            }
-
+            PageService
+                .updatePage(vm.websitePage._id, vm.websitePage)
+                .success(function () {
+                    $location.url("/user/"+userId + "/website/" + websiteId + "/page");
+                })
+                .error(function (error) {
+                    console.log(error);
+                    vm.error = "Sorry! Could not update the page";
+                });
         }
 
     }

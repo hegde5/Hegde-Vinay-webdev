@@ -14,7 +14,8 @@ module.exports = function (app) {
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
-
+    app.put('/api/user/:uid', updateUser);
+    app.delete('/api/user/:uid', deleteUser);
 
     function createUser(req, res) {
         var user = req.body;
@@ -101,6 +102,51 @@ module.exports = function (app) {
             }
         }
         res.send('0');
+    }
+
+    function updateUser(req, res)
+    {
+        var user =  req.body;
+        var uid = req.params.uid;
+
+        var eachUser = null;
+        for(var i in users)
+        {
+            eachUser = users[i];
+            if(uid === eachUser._id)
+            {
+                users[i] = user;
+                res.send(200);
+                return;
+            }
+        }
+        res.send('0');
+
+
+
+    }
+
+    function deleteUser(req, res)
+    {
+        var uid = req.params.uid;
+
+        var eachUser = null;
+        for(var i in users)
+        {
+            eachUser = users[i];
+            if(uid === eachUser._id)
+            {
+                users.splice(i,1);
+                res.send(200);
+                return;
+            }
+        }
+        res.send('0');
+
+
+
+
+
     }
 
 

@@ -9,13 +9,6 @@
 
     function UserService($http)
     {
-        var users = [
-            {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
-            {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
-            {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
-        ];
-
         var api = {
             createUser : createUser,
             findUserById : findUserById,
@@ -42,6 +35,7 @@
             return $http.get(url);
         }
 
+
         function findUserByUsername(username)
         {
             var user = null;
@@ -57,6 +51,7 @@
 
         }
 
+
         function findUserByCredentials(username, password)
         {
             var url = '/api/user?username='+username+'&password='+password;
@@ -66,30 +61,14 @@
 
         function updateUser(userId, user)
         {
-            var eachUser = null;
-            for(var i in users)
-            {
-                eachUser = users[i];
-                if(userId === eachUser._id)
-                {
-                    users[i] = user;
-                    return true;
-                }
-            }
-            return false;
+            var url = "/api/user/" + userId;
+            $http.put(url, user);
         }
 
         function deleteUser(userId)
         {
-            var eachUser = null;
-            for(var i in users)
-            {
-                eachUser = users[i];
-                if(userId === eachUser._id)
-                {
-                    users.splice(i,1);
-                }
-            }
+            var url = "/api/user/" + userId;
+            return $http.delete(url);
         }
 
 

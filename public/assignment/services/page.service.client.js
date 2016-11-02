@@ -8,13 +8,8 @@
         .factory("PageService", PageService);
     
     
-    function PageService()
+    function PageService($http)
     {
-        var pages = [
-            { _id: "321", name: "Post 1", websiteId: "456", description: "Lorem" },
-            { _id: "432", name: "Post 2", websiteId: "456", description: "Lorem" },
-            { _id: "543", name: "Post 3", websiteId: "456", description: "Lorem" }
-        ];
 
 
         var api = {
@@ -30,88 +25,32 @@
 
         function createPage(websiteId, page)
         {
-
-            var eachPage = null;
-            for(var i in pages)
-            {
-                eachPage = pages[i];
-                if(eachPage.websiteId === websiteId &&
-                eachPage.name === page.name)
-                    return false;
-
-            }
-            page.websiteId = websiteId;
-            page._id = (new Date().getTime()).toString();
-            pages.push(page);
-            return true;
-
-
+            var url = "/api/website/" + websiteId + "/page";
+            return $http.post(url, page);
         }
 
         function findPageByWebsiteId(websiteId)
         {
-            var result = [];
-            var page = null;
-            for(var i in pages)
-            {
-                page = pages[i];
-                if(page.websiteId === websiteId)
-                {
-                    result.push(page);
-                }
-
-            }
-            return result;
-
+            var url = "/api/website/" + websiteId + "/page";
+            return $http.get(url);
         }
 
         function findPageById(pageId)
         {
-            var page = null;
-            for(var i in pages)
-            {
-                page = pages[i];
-                if(page._id === pageId)
-                {
-                    return page;
-                }
-            }
-
-            return null;
+            var url = "/api/page/" + pageId;
+            return $http.get(url);
         }
 
         function updatePage(pageId, page)
         {
-            var eachPage = null;
-            for(var i in pages)
-            {
-                eachPage = pages[i];
-                if(eachPage._id === pageId)
-                {
-                    pages[i] = page;
-                    return true;
-                }
-
-            }
-            return false;
-
+            var url = "/api/page/" + pageId;
+            return $http.put(url, page);
         }
         
         function deletePage(pageId)
         {
-            var page = null;
-
-            for(var i in pages)
-            {
-                page = pages[i];
-                if(page._id == pageId)
-                {
-                    pages.splice(i,1);
-                    return true;
-                }
-            }
-            return false;
-
+            var url = "/api/page/" + pageId;
+            return $http.delete(url);
         }
 
 
