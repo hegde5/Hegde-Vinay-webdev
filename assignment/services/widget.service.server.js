@@ -2,6 +2,26 @@
  * Created by Vinay on 11/3/2016.
  */
 module.exports = function (app) {
+
+
+    var multer = require('multer'); // npm install multer --save
+    var upload = multer({ dest: __dirname+'/../../public/assignment/uploads' });
+    //var upload = multer({ dest: __dirname+'/../../uploads' });
+
+    /*
+    var mime = require('mime');
+    var multer = require('multer'); // npm install multer --save
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, __dirname+'../../uploads')
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + '.' + mime.extension(file.mimetype));
+        }
+    });
+    var upload = multer({ storage: storage });
+    */
+
     var widgets = [
         { _id: "123", "widgetType": "HEADER", "pageId": "321", "size": 2, text: "GIZMODO"},
         { _id: "234", "widgetType": "HEADER", "pageId": "321", "size": 4, text: "Lorem ipsum"},
@@ -19,6 +39,7 @@ module.exports = function (app) {
     app.get("/api/widget/:wgid", findWidgetById);
     app.put("/api/widget/:wgid",updateWidget);
     app.delete("/api/widget/:wgid",deleteWidget);
+    app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
     
     function createWidget(req, res) {
@@ -131,6 +152,81 @@ module.exports = function (app) {
         }
         res.send('0');
     }
+
+    function getCurrentWidget(widgetId) {
+
+        var widget = null;
+        for(var i in widgets)
+        {
+            widget = widgets[i];
+
+            if(widget._id === widgetId)
+            {
+                return widget;
+            }
+        }
+        return widget;
+    }
+
+    function updateCurrentWidget(widgetId, widget) {
+
+        var eachWidget = null;
+        for(var i in widgets)
+        {
+            eachWidget = widgets[i];
+
+            if(eachWidget._id === widgetId) {
+                widget._id = eachWidget._id;
+                widget.pageId = eachWidget.pageId;
+                widgets[i] = widget;
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    function uploadImage(req, res) {
+
+
+        var userId = req.body.userId;
+        var websiteId = req.body.websiteId;
+        //var pageId = req.body.pid;
+        var pageId = req.body.pageId;
+        var widgetId      = req.body.widgetId;
+        var width         = req.body.width;
+        var myFile        = req.file;
+        var widgetName =  req.body.name;
+        var widgetText = req.body.text;
+
+        var originalname  = myFile.originalname; // file name on user's computer
+        var filename      = myFile.filename;     // new file name in upload folder
+        var path          = myFile.path;         // full path of uploaded file
+        var destination   = myFile.destination;  // folder where file is saved to
+        var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
+
+
+        var currentWidget = getCurrentWidget(widgetId);
+        currentWidget.name = widgetName;
+        currentWidget.text = widgetText;
+        currentWidget.width = width;
+        //currentWidget.url = "/assignment/uploads/" + filename;
+        currentWidget.url = "/assignment/uploads/" + filename;
+
+        if(updateCurrentWidget(widgetId, currentWidget))
+        {
+            var destinationPage = "/assignment/index.html#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
+            res.redirect(destinationPage);
+        }
+        else
+        {
+            res.redirect("back");
+        }
+
+    }
+
 
 
 }

@@ -77,6 +77,11 @@ a, a:visited, a:hover, a:active {
     cursor: pointer !important;
 }
 
+
+.form-element-hide {
+    display: none;
+}
+
 /*
 .h1-gizmodo {
     padding-top : 15px;
