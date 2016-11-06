@@ -52,6 +52,7 @@ module.exports = function (app) {
         //res.send(users);
     }
 
+
     function findUserByUsername(req, res)
     {
         var username = req.query.username;
@@ -143,12 +144,6 @@ module.exports = function (app) {
         }
         res.send('0');
 
-
-
-
-
     }
-
-
 
 }

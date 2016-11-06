@@ -40,6 +40,7 @@ module.exports = function (app) {
     app.put("/api/widget/:wgid",updateWidget);
     app.delete("/api/widget/:wgid",deleteWidget);
     app.post ("/api/upload", upload.single('myFile'), uploadImage);
+    app.put("/page/:pid/widget", sortWidgets);
 
     
     function createWidget(req, res) {
@@ -224,6 +225,36 @@ module.exports = function (app) {
         {
             res.redirect("back");
         }
+
+    }
+
+
+    function getCurrentIndex(pageId, index) {
+        var result = [];
+        var eachWidget = null;
+        for(var i in widgets)
+        {
+            eachWidget = widgets[i];
+            if(eachWidget.pageId === pageId)
+            {
+                result.push(i);
+            }
+        }
+
+        return result[index];
+    }
+
+    function sortWidgets(req, res)
+    {
+        var start = req.query.initial;
+        var end = req.query.final;
+        var pageId = req.params.pid;
+
+        var modfiedStart = getCurrentIndex(pageId, start);
+        var modfiedEnd = getCurrentIndex(pageId, end);
+        //widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+        widgets.splice(modfiedEnd, 0, widgets.splice(modfiedStart, 1)[0]);
+        res.send(200);
 
     }
 

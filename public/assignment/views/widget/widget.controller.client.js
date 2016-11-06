@@ -22,6 +22,7 @@
 
         vm.checkSafeHtml = checkSafeHtml;
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
+        //vm.sort = sort;
 
         function checkSafeHtml(widget)
         {
@@ -51,8 +52,11 @@
                 });
         }
         init();
-
-
+        //
+        // function sort(start, end) {
+        //         WidgetService
+        //             .sort(start, end)
+        // }
 
     }
 
