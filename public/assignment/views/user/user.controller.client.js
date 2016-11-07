@@ -62,11 +62,18 @@
             UserService
                 .createUser(user)
                 .success(function(userObj){
+                    if(userObj == '0')
+                    {
+                        vm.error = "Please choose a different username, this username already exists!"
+                    }
+                    else
+                    {
                         var userId = userObj._id;
                         $location.url('/user/'+userId);
+                    }
                 })
                 .error(function (error) {
-                    vm.error = "Please choose a different username, this username already exists!"
+
                 });
         }
 
@@ -97,15 +104,23 @@
 
         function updateProfile()
         {
-            if(UserService.updateUser(userId,vm.user))
-            {
-                vm.success = "Profile was successsfully updated";
-            }
-            else
-            {
-                vm.error = "Could not update the profile!";
-            }
 
+            UserService
+                .updateUser(userId, vm.user)
+                .success(function (status) {
+                    if(status == '0')
+                    {
+                        vm.error = "Could not update the profile!";
+                    }
+                    else
+                    {
+                        vm.success = "Profile was successsfully updated";
+                    }
+
+                })
+                .error(function () {
+
+                });
         }
 
         function unRegisterUser()

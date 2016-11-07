@@ -16,6 +16,8 @@ module.exports = function (app) {
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
+    app.get('/api/user', findUserByCredentials);
+    app.get('/api/user', findUserByUsername);
 
     function createUser(req, res) {
         var user = req.body;

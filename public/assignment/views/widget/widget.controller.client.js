@@ -115,12 +115,20 @@
 
             WidgetService
                 .updateWidget(vm.wgid, vm.widget)
-                .success(function () {
-                    $location.url("/user/"+userId + "/website/" + websiteId + "/page/"+pid+"/widget");
+                .success(function (status) {
+                    if(status == '0')
+                    {
+                        vm.error = "Sorry! Could not update the widget";
+                    }
+                    else
+                    {
+                        $location.url("/user/"+userId + "/website/" + websiteId + "/page/"+pid+"/widget");
+                    }
+
                 })
                 .error(function (error) {
                     console.log(error);
-                    vm.error = "Sorry! Could not update the widget";
+
                 });
         }
 

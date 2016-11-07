@@ -61,12 +61,18 @@
 
             WebsiteService
                 .createWebsite(vm.userId, vm.website)
-                .success(function () {
-                    $location.url("/user/"+userId + "/website/");
+                .success(function (status) {
+                    if(status == '0')
+                    {
+                        vm.error = "Website with same name exists. Please choose a different name";
+                    }
+                    else
+                    {
+                        $location.url("/user/"+userId + "/website/");
+                    }
                 })
                 .error(function (error) {
                     console.log(error);
-                    vm.error = "Website with same name exists. Please choose a different name";
                 });
         }
 
@@ -110,12 +116,19 @@
         {
             WebsiteService
                 .deleteWebsite(websiteId)
-                .success(function () {
-                    $location.url("/user/"+userId + "/website/");
+                .success(function (status) {
+
+                    if(status == '0')
+                    {
+                        vm.error = "Sorry! Could not delete the website";
+                    }
+                    else
+                    {
+                        $location.url("/user/"+userId + "/website/");
+                    }
                 })
                 .error(function (error) {
                     console.log(error);
-                    vm.error = "Sorry! Could not delete the website";
                 });
         }
 
@@ -123,12 +136,19 @@
         {
             WebsiteService
                 .updateWebsite(vm.userWebsite._id, vm.userWebsite)
-                .success(function () {
-                    $location.url("/user/"+userId + "/website/");
+                .success(function (status) {
+                    if(status == '0')
+                    {
+                        vm.error = "Sorry! Could not update the website";
+                    }
+                    else
+                    {
+                        $location.url("/user/"+userId + "/website/");
+                    }
+
                 })
                 .error(function (error) {
                     console.log(error);
-                    vm.error = "Sorry! Could not update the website";
                 })
         }
     }

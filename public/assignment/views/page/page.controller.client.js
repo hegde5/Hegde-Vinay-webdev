@@ -61,12 +61,19 @@
 
             PageService
                 .createPage(vm.currentWebsiteId, vm.currentPage)
-                .success(function () {
-                    $location.url("/user/"+userId + "/website/" + websiteId + "/page");
+                .success(function (status) {
+                    if(status == '0')
+                    {
+                        vm.error = "Page with same name exists. Please choose a different name";
+                    }
+                    else
+                    {
+                        $location.url("/user/"+userId + "/website/" + websiteId + "/page");
+                    }
+
                 })
                 .error(function (error) {
                     console.log(error);
-                    vm.error = "Page with same name exists. Please choose a different name";
                 });
         }
 
@@ -108,12 +115,18 @@
         {
             PageService
                 .deletePage(pageId)
-                .success(function () {
-                    $location.url("/user/"+userId + "/website/"+websiteId+"/page");
+                .success(function (status) {
+                    if(status == '0')
+                    {
+                        vm.error = "Sorry! Could not delete the page";
+                    }
+                    else
+                    {
+                        $location.url("/user/"+userId + "/website/"+websiteId+"/page");
+                    }
                 })
                 .error(function (error) {
                     console.log(error);
-                    vm.error = "Sorry! Could not delete the page";
                 })
         }
 
@@ -121,12 +134,19 @@
         {
             PageService
                 .updatePage(vm.websitePage._id, vm.websitePage)
-                .success(function () {
-                    $location.url("/user/"+userId + "/website/" + websiteId + "/page");
+                .success(function (status) {
+                    if(status == '0')
+                    {
+                        vm.error = "Sorry! Could not update the page";
+                    }
+                    else
+                    {
+                        $location.url("/user/"+userId + "/website/" + websiteId + "/page");
+                    }
                 })
                 .error(function (error) {
                     console.log(error);
-                    vm.error = "Sorry! Could not update the page";
+
                 });
         }
 

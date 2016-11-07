@@ -51,7 +51,7 @@
         function updateUser(userId, user)
         {
             var url = "/api/user/" + userId;
-            $http.put(url, user);
+            return $http.put(url, user);
         }
 
         function deleteUser(userId)
