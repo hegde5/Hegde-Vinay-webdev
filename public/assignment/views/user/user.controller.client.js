@@ -96,6 +96,9 @@
                 if(user != '0')
                 {
                     vm.user = user;
+                    // console.log(user.username);
+                    // console.log(user.firstName);
+                    // console.log(user.lastName);
                 }
             })
             .error(function (error) {
