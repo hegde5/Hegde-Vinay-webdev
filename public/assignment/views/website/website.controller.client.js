@@ -17,8 +17,9 @@
         vm.userId = userId;
         var promise = WebsiteService.findWebsitesByUser(userId);
         promise
-            .success(function (websites) {
-                vm.websites = websites;
+            .success(function (user) {
+                vm.websites = user.websites;
+
                 
             })
             .error(function (error) {
@@ -40,8 +41,9 @@
             vm.userId = userId;
             var promise = WebsiteService.findWebsitesByUser(userId);
             promise
-                .success(function (websites) {
-                    vm.userWebsites = websites;
+                .success(function (userObj) {
+
+                    vm.userWebsites = userObj.websites;
 
                 })
                 .error(function (error) {
@@ -83,6 +85,7 @@
 
         var vm = this;
         var userId = $routeParams.uid;
+        vm.userId = userId;
         var websiteId = $routeParams.wid;
         vm.currentWebsiteId = websiteId;
         //var userWebsites = WebsiteService.findWebsitesByUser(userId);
@@ -95,8 +98,9 @@
 
             WebsiteService
                 .findWebsitesByUser(userId)
-                .success(function (userWebsites) {
-                    vm.userWebsites = userWebsites;
+                .success(function (userObj) {
+                    vm.userWebsites = userObj.websites;
+                    var userWebsites = userObj.websites;
                     for(var i in userWebsites)
                     {
                         if(websiteId === userWebsites[i]._id)
@@ -134,6 +138,7 @@
 
         function updateCurrentWebsite()
         {
+            console.log("USer website id is " + vm.userWebsite._id);
             WebsiteService
                 .updateWebsite(vm.userWebsite._id, vm.userWebsite)
                 .success(function (status) {

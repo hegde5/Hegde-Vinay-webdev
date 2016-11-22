@@ -11,10 +11,15 @@ module.exports = function(){
     mongoose.connect(connectionString);
 
     var userModel = require('./user/user.model.server')();
+    var websiteModel = require('./website/website.model.server')();
 
     var model = {
-      userModel: userModel
+      userModel: userModel,
+      websiteModel: websiteModel
     };
+
+    websiteModel.setModel(model);
+    userModel.setModel(model);
     return model;
 
 };

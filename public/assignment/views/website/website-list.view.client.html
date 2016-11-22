@@ -20,8 +20,8 @@
 <div class="container">
     <div ng-repeat="website in model.websites" class="row row-space" >
         <div class="col-xs-12 anchor-blue">
-            <a href="#/user/{{website.developerId}}/website/{{website._id}}/page" class="no-underline">{{website.name}}</a>
-            <a href="#/user/{{website.developerId}}/website/{{website._id}}" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
+            <a href="#/user/{{model.userId}}/website/{{website._id}}/page" class="no-underline">{{website.name}}</a>
+            <a href="#/user/{{model.userId}}/website/{{website._id}}" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
         </div>
 
     </div>

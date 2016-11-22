@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
     <div class="navbar-text pull-left">
-        <a href="#/user/{{model.userWebsite.developerId}}/website" class="navbar-link">
+        <a href="#/user/{{model.userId}}/website" class="navbar-link">
             <span class="glyphicon glyphicon-chevron-left glphi-white"></span>
         </a>
     </div>
@@ -30,8 +30,8 @@
             <div class="col-xs-6 col-sm-4 hidden-xs">
                 <div class="row" >
                     <div ng-repeat="eachWebsite in model.userWebsites" class="col-xs-12 anchor-blue row-space">
-                        <a href="#/user/{{eachWebsite.developerId}}/website/{{eachWebsite._id}}/page" class="no-underline">{{eachWebsite.name}}</a>
-                        <a href="#/user/{{eachWebsite.developerId}}/website/{{eachWebsite._id}}" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
+                        <a href="#/user/{{model.userId}}/website/{{eachWebsite._id}}/page" class="no-underline">{{eachWebsite.name}}</a>
+                        <a href="#/user/{{model.userId}}/website/{{eachWebsite._id}}" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
                     </div>
 
                 </div>
@@ -64,7 +64,7 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="header">
-            <a href="#/user/{{model.userWebsite.developerId}}" class="navbar-text pull-right navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-text pull-right navbar-link">
                 <span class="glyphicon glyphicon-user glphi-white"></span>
             </a>
         </div>

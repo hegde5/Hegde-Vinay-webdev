@@ -3,6 +3,7 @@
  */
 module.exports = function () {
     var mongoose = require('mongoose');
+    var model = {};
     var UserSchema = require('./user.schema.server')();
     var UserModel = mongoose.model("UserModel", UserSchema);
 
@@ -12,11 +13,24 @@ module.exports = function () {
         updateUser: updateUser,
         findUserByCredentials: findUserByCredentials,
         findUserByUsername: findUserByUsername,
-        removeUser: removeUser
+        findAllWebsitesForUser: findAllWebsitesForUser,
+        removeUser: removeUser,
+        removeWebsiteFromUser : removeWebsiteFromUser,
+        setModel: setModel
     }
     return api;
 
-    function createUser(user) {
+    function setModel(_model) {
+        model = _model;
+    }
+    
+    function findAllWebsitesForUser(userId) {
+        return UserModel.findById(userId)
+            .populate("websites")
+            .exec();
+    }
+
+    function createUser(userId, user) {
         return UserModel.create(user);
     }
     
@@ -59,6 +73,20 @@ module.exports = function () {
                 _id: userId
             });
 
+    }
+    
+    function  removeWebsiteFromUser(userId, websiteId) {
+        return UserModel.findById(userId)
+            .then(function (userObj) {
+                var userWebsites = userObj.websites;
+                for(var i = 0; i < userWebsites.length; i++)
+                {
+                    if(userWebsites[i] == websiteId)
+                        userWebsites.splice(i,1);
+                }
+                userObj.websites = userWebsites;
+                return userObj.save();
+            })
     }
     
     
