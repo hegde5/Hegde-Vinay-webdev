@@ -13,7 +13,9 @@ module.exports = function () {
         setModel: setModel,
         findWebsiteById: findWebsiteById,
         updateWebsite: updateWebsite,
-        deleteWebsite: deleteWebsite
+        deleteWebsite: deleteWebsite,
+        findAllPagesForWebsite : findAllPagesForWebsite,
+        removePageFromWebsite : removePageFromWebsite
     }
     return api;
     
@@ -74,5 +76,27 @@ module.exports = function () {
                     });
             });
 
+    }
+
+    function findAllPagesForWebsite(websiteId){
+        return WebsiteModel.findById(websiteId)
+            .populate("pages")
+            .exec();
+    }
+    
+    function removePageFromWebsite(websiteId, pageId) {
+        return WebsiteModel.findById(websiteId)
+            .then(function (websiteObj) {
+                var pages = websiteObj.pages;
+                var pagesLength = pages.length;
+                for(var i = 0; i < pagesLength; i++)
+                {
+                    if(pages[i] == pageId)
+                        pages.splice(i,1);
+                }
+                websiteObj.pages = pages;
+                return websiteObj.save();
+            });
+        
     }
 }

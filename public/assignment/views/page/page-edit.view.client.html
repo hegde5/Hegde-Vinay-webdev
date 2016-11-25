@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-text pull-left">
-        <a href="#/user/{{model.userId}}/website/{{model.websitePage.websiteId}}/page" class="navbar-link">
+        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
     </div>
@@ -32,8 +32,8 @@
 
             <div class="row row-space" >
                 <div ng-repeat="page in model.websitePagesonEdit" class="col-xs-12 anchor-blue">
-                    <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget" class="no-underline">{{page.name}}</a>
-                    <a href="#/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget" class="no-underline">{{page.name}}</a>
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}"> <span class="glyphicon glyphicon-cog pull-right"></span></a>
                 </div>
             </div>
         </div>

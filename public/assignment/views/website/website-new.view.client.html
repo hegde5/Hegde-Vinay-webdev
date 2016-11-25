@@ -32,8 +32,8 @@
         <div class="col-xs-6 col-sm-4 hidden-xs">
             <div class="row" >
                 <div ng-repeat="eachWebsite in model.userWebsites" class="col-xs-12 anchor-blue row-space">
-                    <a href="#/user/{{eachWebsite.developerId}}/website/{{eachWebsite._id}}/page" class="no-underline">{{eachWebsite.name}}</a>
-                    <a href="#/user/{{eachWebsite.developerId}}/website/{{eachWebsite._id}}" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
+                    <a href="#/user/{{model.userId}}/website/{{eachWebsite._id}}/page" class="no-underline">{{eachWebsite.name}}</a>
+                    <a href="#/user/{{model.userId}}/website/{{eachWebsite._id}}" > <span class="glyphicon glyphicon-cog pull-right"></span></a>
                 </div>
 
             </div>

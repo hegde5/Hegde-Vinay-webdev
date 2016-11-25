@@ -1,7 +1,7 @@
 /**
  * Created by Vinay on 11/2/2016.
  */
-module.exports = function (app) {
+module.exports = function (app, model) {
 
     var pages = [
         { _id: "321", name: "Post 1", websiteId: "456", description: "Lorem" },
@@ -21,18 +21,24 @@ module.exports = function (app) {
 
         var websiteId = req.params.wid;
 
-        var result = [];
-        var page = null;
-        for(var i in pages)
-        {
-            page = pages[i];
-            if(page.websiteId === websiteId)
-            {
-                result.push(page);
-            }
-
-        }
-        res.json(result);
+        model
+            .pageModel
+            .findAllPagesForWebsite(websiteId)
+            .then(
+                function (pages) {
+                    if(pages)
+                    {
+                        res.send(pages);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
 
@@ -41,39 +47,52 @@ module.exports = function (app) {
         var websiteId = req.params.wid;
         var page = req.body;
 
-        var eachPage = null;
-        for(var i in pages)
-        {
-            eachPage = pages[i];
-            if(eachPage.websiteId === websiteId &&
-            eachPage.name === page.name)
-            {
-                res.send('0');
-                return;
-            }
+        model
+            .pageModel
+            .createPage(websiteId, page)
+            .then(
+                function (page) {
+                    if(page)
+                    {
+                        res.send(page);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
 
-        }
-        page.websiteId = websiteId;
-        page._id = (new Date().getTime()).toString();
-        pages.push(page);
-        res.send(pages);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+
+                }
+
+            );
 
     }
 
     function findPageById(req, res) {
 
         var pageId = req.params.pid;
-        var page = null;
-        for(var i in pages)
-        {
-            page = pages[i];
-            if(page._id === pageId)
-            {
-                res.send(page);
-                return;
-            }
-        }
-        res.send('0');
+
+        model
+            .pageModel
+            .findPageById(pageId)
+            .then(
+                function (page) {
+                    if(page)
+                    {
+                        res.send(page);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function updatePage(req, res) {
@@ -81,35 +100,44 @@ module.exports = function (app) {
         var pageId = req.params.pid;
         var page = req.body;
 
-        var eachPage = null;
-        for(var i in pages)
-        {
-            eachPage = pages[i];
-            if(eachPage._id === pageId)
-            {
-                pages[i] = page;
-                res.send(200);
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .pageModel
+            .updatePage(pageId, page)
+            .then(
+                function (page) {
+                    if(page)
+                    {
+                        res.send(page);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function deletePage(req, res) {
 
         var pageId = req.params.pid;
-        var page = null;
 
-        for(var i in pages)
-        {
-            page = pages[i];
-            if(page._id == pageId)
-            {
-                pages.splice(i,1);
-                res.send(200);
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .pageModel
+            .deletePage(pageId)
+            .then(
+                function (status)
+                {
+                    res.send(200);
+
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+
+            );
     }
-}
+};

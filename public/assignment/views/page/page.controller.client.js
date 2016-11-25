@@ -19,8 +19,8 @@
 
         var promise = PageService.findPageByWebsiteId(websiteId);
         promise
-            .success(function (websitePages) {
-                vm.websitePages = websitePages;
+            .success(function (websites) {
+                vm.websitePages = websites.pages;
             })
             .error(function (error) {
                 console.log(error);
@@ -33,6 +33,7 @@
         var vm = this;
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
+        vm.websiteId = websiteId;
         vm.userId = userId;
         vm.currentWebsiteId = websiteId;
         vm.createPage = createPage;
@@ -42,8 +43,8 @@
 
             PageService
                 .findPageByWebsiteId(websiteId)
-                .success(function (websitePages) {
-                    vm.websitePages = websitePages;
+                .success(function (website) {
+                    vm.websitePages = website.pages;
                 })
                 .error(function (error) {
                     console.log(error);
@@ -88,13 +89,16 @@
         var pageId = $routeParams.pid;
         vm.userId = userId;
         vm.pageId = pageId;
+        vm.websiteId = websiteId;
         vm.deleteCurrentPage = deleteCurrentPage;
         vm.updateCurrentPage = updateCurrentPage;
 
         function init() {
             var promise = PageService.findPageByWebsiteId(websiteId);
             promise
-                .success(function (websitePages) {
+                .success(function (website) {
+
+                    var websitePages = website.pages;
                     vm.websitePagesonEdit = websitePages;
                     for(var i in websitePages)
                     {
