@@ -44,8 +44,9 @@
         {
             WidgetService
                 .findWidgetsByPageId(pid)
-                .success(function (widgets) {
-                    vm.widgets = widgets;
+                .success(function (page) {
+                    vm.widgets = page.widgets;
+
                 })
                 .error(function (error) {
                     console.log(error);
@@ -81,8 +82,8 @@
                 //var newWgid = WidgetService.createWidget(pageId,widget);
                 WidgetService
                     .createWidget(pageId, widget)
-                    .success(function (newWgid) {
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+newWgid);
+                    .success(function (widget) {
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
                     })
                     .error(function (error) {
                         console.log(error);

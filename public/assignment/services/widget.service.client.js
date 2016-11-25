@@ -47,31 +47,6 @@
             return $http.put(url, widget);
         }
 
-        // function UpdateFieldsOnWidgetType(widget,currentWidget)
-        // {
-        //     if(currentWidget.widgetType === "HEADER")
-        //     {
-        //         widget.text = currentWidget.text;
-        //         widget.size = currentWidget.size;
-        //     }
-        //     else if(currentWidget.widgetType === "IMAGE")
-        //     {
-        //         widget.width = currentWidget.width;
-        //         widget.url = currentWidget.url;
-        //     }
-        //     else if(currentWidget.widgetType === "HTML")
-        //     {
-        //         widget.text = currentWidget.text;
-        //
-        //     }
-        //     else
-        //     {
-        //         widget.url = currentWidget.url;
-        //         widget.width = currentWidget.width;
-        //     }
-        //
-        //     return widget;
-        // }
 
         function deleteWidget(widgetId)
         {

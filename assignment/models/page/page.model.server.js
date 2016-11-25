@@ -15,6 +15,8 @@ module.exports = function () {
         findPageById : findPageById,
         updatePage : updatePage,
         deletePage : deletePage,
+        findAllWidgetsForPage : findAllWidgetsForPage,
+        removeWidgetFromPage: removeWidgetFromPage,
         setModel : setModel
 
     };
@@ -49,6 +51,12 @@ module.exports = function () {
     function findPageById(pageId) {
         return PageModel.findById(pageId);
     }
+
+    function findAllWidgetsForPage(pageId) {
+        return PageModel.findById(pageId)
+            .populate('widgets')
+            .exec();
+    }
     
     function updatePage(pageId, page) {
         return PageModel.update(
@@ -62,6 +70,23 @@ module.exports = function () {
             }
 
         );
+        
+    }
+    
+    function removeWidgetFromPage(pageId, widgetId) {
+        return PageModel.findById(pageId)
+            .then(function (pageObj) {
+                var widgets = pageObj.widgets;
+                var widgetsLength = widgets.length;
+                for(var i = 0; i < widgetsLength; i++)
+                {
+                    if(widgets[i] == widgetId)
+                        widgets.splice(i,1);
+                }
+                pageObj.widgets = widgets;
+                return pageObj.save();
+
+            })
         
     }
     

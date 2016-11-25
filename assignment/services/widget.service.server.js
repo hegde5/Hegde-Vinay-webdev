@@ -1,7 +1,7 @@
 /**
  * Created by Vinay on 11/3/2016.
  */
-module.exports = function (app) {
+module.exports = function (app, model) {
 
 
     var multer = require('multer'); // npm install multer --save
@@ -48,10 +48,25 @@ module.exports = function (app) {
         var pageId = req.params.pid;
         var widget = req.body;
 
-        widget.pageId = pageId;
-        widget._id = (new Date().getTime()).toString();
-        widgets.push(widget);
-        res.send(widget._id);
+        model
+            .widgetModel
+            .createWidget(pageId, widget)
+            .then(
+                function (widget) {
+                    if(widget)
+                    {
+                        res.send(widget);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function findAllWidgetsForPage(req, res) {
@@ -59,35 +74,48 @@ module.exports = function (app) {
 
         var pageId = req.params.pid;
 
-        var result = [];
-        var widget = null;
-        for(var i in widgets)
-        {
-            widget = widgets[i];
-            if(widget.pageId === pageId)
-            {
-                result.push(widget);
-            }
-        }
-
-        res.json(result);
+        model
+            .pageModel
+            .findAllWidgetsForPage(pageId)
+            .then(
+                function (widgets) {
+                    if(widgets)
+                    {
+                        res.send(widgets);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
     
     function findWidgetById(req, res) {
 
         var widgetId = req.params.wgid;
 
-        var widget = null;
-        for(var i in widgets)
-        {
-            widget = widgets[i];
-            if(widget._id === widgetId)
-            {
-                res.send(widget);
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    if(widget)
+                    {
+                        res.send(widget);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
     function updateWidget(req, res) {
@@ -95,63 +123,76 @@ module.exports = function (app) {
         var widgetId = req.params.wgid;
         var widget = req.body;
 
-        var eachWidget = null;
-        for(var i in widgets)
-        {
-            eachWidget = widgets[i];
-            if(eachWidget._id === widgetId)
-            {
-                var updatedWidget = UpdateFieldsOnWidgetType(widgets[i],widget);
-                widgets[i] = updatedWidget;
-                res.send(200);
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .widgetModel
+            .updateWidget(widgetId, widget)
+            .then(
+                function (status) {
+                    if(status)
+                    {
+                        res.send(200);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+
+            );
     }
 
-    function UpdateFieldsOnWidgetType(widget,currentWidget)
-    {
-        if(currentWidget.widgetType === "HEADER")
-        {
-            widget.text = currentWidget.text;
-            widget.size = currentWidget.size;
-        }
-        else if(currentWidget.widgetType === "IMAGE")
-        {
-            widget.width = currentWidget.width;
-            widget.url = currentWidget.url;
-        }
-        else if(currentWidget.widgetType === "HTML")
-        {
-            widget.text = currentWidget.text;
-
-        }
-        else
-        {
-            widget.url = currentWidget.url;
-            widget.width = currentWidget.width;
-        }
-
-        return widget;
-    }
+    // function UpdateFieldsOnWidgetType(widget,currentWidget)
+    // {
+    //     if(currentWidget.widgetType === "HEADER")
+    //     {
+    //         widget.text = currentWidget.text;
+    //         widget.size = currentWidget.size;
+    //     }
+    //     else if(currentWidget.widgetType === "IMAGE")
+    //     {
+    //         widget.width = currentWidget.width;
+    //         widget.url = currentWidget.url;
+    //     }
+    //     else if(currentWidget.widgetType === "HTML")
+    //     {
+    //         widget.text = currentWidget.text;
+    //
+    //     }
+    //     else
+    //     {
+    //         widget.url = currentWidget.url;
+    //         widget.width = currentWidget.width;
+    //     }
+    //
+    //     return widget;
+    // }
 
     function deleteWidget(req, res) {
 
         var widgetId = req.params.wgid;
 
-        var widget = null;
-        for(var i in widgets)
-        {
-            widget = widgets[i];
-            if(widget._id === widgetId)
-            {
-                widgets.splice(i,1);
-                res.send(200);
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .widgetModel
+            .deleteWidget(widgetId)
+            .then(
+                function (status) {
+                    if(status)
+                    {
+                        res.send(200);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+
+                }
+            );
     }
 
     function getCurrentWidget(widgetId) {
@@ -209,22 +250,39 @@ module.exports = function (app) {
         var mimetype      = myFile.mimetype;
 
 
-        var currentWidget = getCurrentWidget(widgetId);
-        currentWidget.name = widgetName;
-        currentWidget.text = widgetText;
-        currentWidget.width = width;
-        //currentWidget.url = "/assignment/uploads/" + filename;
-        currentWidget.url = "/assignment/uploads/" + filename;
+        //var currentWidget = getCurrentWidget(widgetId);
+        model
+            .widgetModel
+            .findWidgetById(widgetId)
+            .then(function (currentWidget) {
+                currentWidget.name = widgetName;
+                currentWidget.text = widgetText;
+                currentWidget.width = width;
+                //currentWidget.url = "/assignment/uploads/" + filename;
+                currentWidget.url = "/assignment/uploads/" + filename;
 
-        if(updateCurrentWidget(widgetId, currentWidget))
-        {
-            var destinationPage = "/assignment/index.html#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
-            res.redirect(destinationPage);
-        }
-        else
-        {
-            res.redirect("back");
-        }
+                model
+                    .widgetModel
+                    .updateWidget(widgetId, currentWidget)
+                    .then(
+                        function (status) {
+                            if(status.ok ==  1)
+                            {
+                                var destinationPage = "/assignment/index.html#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
+                                res.redirect(destinationPage);
+                            }
+                            else
+                            {
+                                res.redirect("back");
+                            }
+
+                        },
+                        function (error) {
+                            res.sendStatus(400).send(error);
+
+                        }
+                    );
+            });
 
     }
 
@@ -260,4 +318,4 @@ module.exports = function (app) {
 
 
 
-}
+};
