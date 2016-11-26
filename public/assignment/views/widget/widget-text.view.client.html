@@ -1,0 +1,53 @@
+<script src="../../../../assignment/models/model.server.js"></script>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="header">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pid}}/widget" class="navbar-text text-center pull-left">
+                <span class="glyphicon glyphicon-menu-left"></span>
+            </a>
+
+            <p class="navbar-brand"><strong>Widget Edit</strong></p>
+
+
+            <p class="navbar-text pull-right">
+                <a ng-click="model.updateCurrentWidget()" class="navbar-link navbar-custom">
+                        <span class="glyphicon glyphicon-ok">
+                        </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <br/>
+    <form>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <input ng-model="model.widget.text" id="text" class="form-control" />
+
+            <label for="rows">Rows</label>
+            <input ng-model="model.widget.rows" id="rows" class="form-control"  type="number" />
+
+            <label for="placeholder">Placeholder</label>
+            <input ng-model="model.widget.placeHolder" id="placeholder" class="form-control"  />
+
+            <label for="formatted">Formatted</label>
+            <input ng-model="model.widget.formatted" id="formatted" type="checkbox"/>
+        </div>
+    </form>
+
+    <a class="btn btn-danger btn-block glphi-white" ng-click="model.deleteCurrentWidget();">Delete</a>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="header">
+            <a href="#/user/{{model.userId}}" class="navbar-text pull-right navbar-link">
+                <span class="glyphicon glyphicon-user anchor-blue"></span>
+            </a>
+        </div>
+    </div>
+</nav>

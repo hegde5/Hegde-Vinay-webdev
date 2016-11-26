@@ -98,6 +98,22 @@ module.exports = function () {
                 }
             )
         }
+        else if (widgetType === "TEXT")
+        {
+            return WidgetModel.update(
+                {
+                    _id: widget._id
+                },
+                {
+                    text: widget.text,
+                    rows: widget.rows,
+                    formatted: widget.formatted,
+                    placeHolder: widget.placeHolder
+
+                }
+            )
+
+        }
         else
         {
             return WidgetModel.update(

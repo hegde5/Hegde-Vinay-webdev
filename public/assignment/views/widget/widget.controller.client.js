@@ -98,7 +98,7 @@
         function createWidget(widgetType)
         {
             console.log("order is " + vm.widgets.length);
-            if(widgetType === "HEADER" || widgetType === "IMAGE" || widgetType === "HTML" || widgetType === "YOUTUBE")
+            if(widgetType === "HEADER" || widgetType === "IMAGE" || widgetType === "HTML" || widgetType === "YOUTUBE" || widgetType === "TEXT")
             {
                 var widgetOrder = vm.widgets.length;
                 var widget = {order: widgetOrder};
