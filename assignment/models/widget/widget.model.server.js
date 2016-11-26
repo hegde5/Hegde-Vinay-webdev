@@ -13,7 +13,7 @@ module.exports = function () {
       findWidgetById: findWidgetById,
       updateWidget: updateWidget,
       deleteWidget: deleteWidget,
-      //reorderWidget: reorderWidget,
+      reorderWidget: reorderWidget,
       setModel : setModel
 
     };
@@ -125,6 +125,37 @@ module.exports = function () {
                         return WidgetModel.remove({_id: widgetId});
                     })
             })
+    }
+    
+    function reorderWidget(start, end, pageId) {
+        return WidgetModel.find({_page: pageId},
+        function (err, widgets) {
+
+            widgets.forEach(function (widget) {
+
+                if(start < end)
+                {
+                    if (widget.order == start)
+                        widget.order = end;
+                    else if (widget.order > start && widget.order <= end)
+                        widget.order = widget.order - 1;
+
+                    widget.save();
+                }
+                else
+                {
+                    if(widget.order < start && widget.order >= end)
+                        widget. order = widget.order + 1;
+                    else if(widget.order == start)
+                    {
+                            widget.order = end;
+                    }
+                    widget.save();
+                }
+
+            });
+        });
+
     }
 
 

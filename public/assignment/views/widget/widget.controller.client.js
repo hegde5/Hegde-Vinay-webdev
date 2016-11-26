@@ -45,7 +45,11 @@
             WidgetService
                 .findWidgetsByPageId(pid)
                 .success(function (page) {
-                    vm.widgets = page.widgets;
+                    //vm.widgets = page.widgets;
+                    var widgets = page.widgets;
+                    vm.widgets = widgets.sort(function(a, b) {
+                        return parseInt(a.order) - parseFloat(b.order);
+                    });
 
                 })
                 .error(function (error) {
@@ -73,11 +77,31 @@
         vm.createWidget = createWidget;
 
 
+        function init()
+        {
+            WidgetService
+                .findWidgetsByPageId(pageId)
+                .success(function (page) {
+                    //vm.widgets = page.widgets;
+                    var widgets = page.widgets;
+                    vm.widgets = widgets.sort(function(a, b) {
+                        return parseInt(a.order) - parseFloat(b.order);
+                    });
+
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
+        }
+        init();
+
         function createWidget(widgetType)
         {
+            console.log("order is " + vm.widgets.length);
             if(widgetType === "HEADER" || widgetType === "IMAGE" || widgetType === "HTML" || widgetType === "YOUTUBE")
             {
-                var widget = {};
+                var widgetOrder = vm.widgets.length;
+                var widget = {order: widgetOrder};
                 widget.widgetType = widgetType;
                 //var newWgid = WidgetService.createWidget(pageId,widget);
                 WidgetService

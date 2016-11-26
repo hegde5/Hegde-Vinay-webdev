@@ -286,34 +286,32 @@ module.exports = function (app, model) {
 
     }
 
-
-    function getCurrentIndex(pageId, index) {
-        var result = [];
-        var eachWidget = null;
-        for(var i in widgets)
-        {
-            eachWidget = widgets[i];
-            if(eachWidget.pageId === pageId)
-            {
-                result.push(i);
-            }
-        }
-
-        return result[index];
-    }
-
     function sortWidgets(req, res)
     {
         var start = req.query.initial;
         var end = req.query.final;
         var pageId = req.params.pid;
 
-        var modfiedStart = getCurrentIndex(pageId, start);
-        var modfiedEnd = getCurrentIndex(pageId, end);
-        //widgets.splice(end, 0, widgets.splice(start, 1)[0]);
-        widgets.splice(modfiedEnd, 0, widgets.splice(modfiedStart, 1)[0]);
-        res.send(200);
+        model
+            .widgetModel
+            .reorderWidget(start, end, pageId)
+            .then(
+                function (status) {
+                    if(status)
+                    {
+                        res.send(200);
+                    }
+                    else
+                    {
+                        res.send('0');
+                    }
 
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+
+            )
     }
 
 

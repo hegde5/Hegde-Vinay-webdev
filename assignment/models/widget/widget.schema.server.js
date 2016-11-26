@@ -22,6 +22,7 @@ module.exports = function () {
         icon: String,
         deletable: Boolean,
         formatted: Boolean,
+        order: Number,
         dateCreated: {type: Date, default: Date.now}
     })
 
