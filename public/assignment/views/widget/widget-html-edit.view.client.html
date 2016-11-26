@@ -1,0 +1,44 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="header">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pid}}/widget" class="navbar-text text-center pull-left">
+                <span class="glyphicon glyphicon-menu-left"></span>
+            </a>
+
+            <p class="navbar-brand"><strong>Widget Edit</strong></p>
+
+
+            <p class="navbar-text pull-right">
+                <a ng-click="model.updateCurrentWidget()" class="navbar-link navbar-custom">
+                        <span class="glyphicon glyphicon-ok">
+                        </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <br/>
+    <form>
+        <div class="form-group" ng-model="model.widget.text"
+             text-angular
+             ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
+        </div>
+    </form>
+
+    <a class="btn btn-danger btn-block glphi-white" ng-click="model.deleteCurrentWidget();">Delete</a>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="header">
+            <a href="#/user/{{model.userId}}" class="navbar-text pull-right navbar-link">
+                <span class="glyphicon glyphicon-user anchor-blue"></span>
+            </a>
+        </div>
+    </div>
+</nav>
