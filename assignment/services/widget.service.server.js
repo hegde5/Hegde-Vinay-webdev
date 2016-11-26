@@ -241,6 +241,13 @@ module.exports = function (app, model) {
         var myFile        = req.file;
         var widgetName =  req.body.name;
         var widgetText = req.body.text;
+        if(myFile == undefined)
+        {
+            var destinationPage = "/assignment/index.html#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
+            res.redirect(destinationPage);
+            return;
+
+        }
 
         var originalname  = myFile.originalname; // file name on user's computer
         var filename      = myFile.filename;     // new file name in upload folder

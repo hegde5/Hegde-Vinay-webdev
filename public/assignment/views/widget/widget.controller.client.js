@@ -85,7 +85,7 @@
                     //vm.widgets = page.widgets;
                     var widgets = page.widgets;
                     vm.widgets = widgets.sort(function(a, b) {
-                        return parseInt(a.order) - parseFloat(b.order);
+                        return parseInt(a.order) - parseInt(b.order);
                     });
 
                 })

@@ -30,7 +30,8 @@ module.exports = function () {
             .exec();
     }
 
-    function createUser(userId, user) {
+    function createUser(user) {
+        console.log(user);
         return UserModel.create(user);
     }
     
@@ -52,7 +53,10 @@ module.exports = function () {
                 },
                 {
                     firstName: user.firstName,
-                    lastName: user.lastName
+                    lastName: user.lastName,
+                    username: user.username,
+                    email: user.email
+
                 }
             );
         

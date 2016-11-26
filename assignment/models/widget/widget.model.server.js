@@ -143,28 +143,28 @@ module.exports = function () {
             })
     }
     
-    function reorderWidget(start, end, pageId) {
+    function reorderWidget(initial, final, pageId) {
         return WidgetModel.find({_page: pageId},
         function (err, widgets) {
 
             widgets.forEach(function (widget) {
 
-                if(start < end)
+                if(initial < final)
                 {
-                    if (widget.order == start)
-                        widget.order = end;
-                    else if (widget.order > start && widget.order <= end)
+                    if (widget.order == initial)
+                        widget.order = final;
+                    else if (widget.order > initial && widget.order <= final)
                         widget.order = widget.order - 1;
 
                     widget.save();
                 }
                 else
                 {
-                    if(widget.order < start && widget.order >= end)
+                    if(widget.order < initial && widget.order >= final)
                         widget. order = widget.order + 1;
-                    else if(widget.order == start)
+                    else if(widget.order == initial)
                     {
-                            widget.order = end;
+                            widget.order = final;
                     }
                     widget.save();
                 }
