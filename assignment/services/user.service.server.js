@@ -4,7 +4,27 @@
 
 module.exports = function (app, model) {
 
-    app.post('/api/user', createUser);
+    var passport = require('passport');
+    var LocalStrategy    = require('passport-local').Strategy;
+    var cookieParser = require('cookie-parser');
+    var session = require('express-session');
+
+    app.use(session({
+        secret: 'this is the secret',
+        resave: true,
+        saveUninitialized: true
+    }));
+    app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session());
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/user', register);
+    app.post('/api/checkLogin', checkLogin);
+    app.post('/api/logout', logout);
     app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
@@ -12,7 +32,93 @@ module.exports = function (app, model) {
     app.get('/api/user', findUserByCredentials);
     app.get('/api/user', findUserByUsername);
 
-    function createUser(req, res) {
+
+    function checkLogin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        req.logout();
+        res.send(200);
+    }
+
+    function localStrategy(username, password, done)
+    {
+
+        model
+            .userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function (user) {
+                    if(user)
+                    {
+                        return done(null, user);
+                    }
+                    else{
+                        return done(null, false);
+                    }
+
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+
+
+            );
+    }
+    
+    function login(req, res) {
+        // var user = req.body;
+        // var username = user.username;
+        // var password = user.password;
+        //
+        // model
+        //     .userModel
+        //     .findUserByCredentials(username, password)
+        //     .then(
+        //         function (user) {
+        //             if(user)
+        //             {
+        //                 res.send(user);
+        //             }
+        //             else{
+        //                 res.send('0');
+        //             }
+        //
+        //         },
+        //         function (error) {
+        //             res.sendStatus(400).send(error);
+        //         }
+        //
+        //
+        //     );
+        var user = req.user;
+        res.send(user);
+
+
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        model
+            .userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+
+                },
+                function (err) {
+                    done(err, null);
+                }
+            );
+
+    }
+    
+    function register(req, res) {
         var user = req.body;
         delete user.confirmPassword;
         model
@@ -21,6 +127,15 @@ module.exports = function (app, model) {
             .then(
               function(newUser) {
                   //console.log(newUser);
+                  req.login(newUser, function (err) {
+                     if(err){
+                         res.statusCode(400).send(err);
+                     }
+                     else{
+                         res.json(newUser);
+                     }
+
+                  });
                   res.send(newUser);
               },
                 function(error) {

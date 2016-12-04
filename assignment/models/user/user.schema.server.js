@@ -13,7 +13,7 @@ module.exports = function () {
         email: String,
         phone: String,
         websites: [{type: mongoose.Schema.Types.ObjectId, ref:'WebsiteModel'}],
-        dateCreated: Date
+        dateCreated: Date,
     }, {collection:"user"});
     return UserSchema;
 };

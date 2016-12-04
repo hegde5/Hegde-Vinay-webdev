@@ -21,7 +21,8 @@
                 vm.error = "Please enter Username and Password";
                 return;
             }
-            var promise = UserService.findUserByCredentials(username,password);
+            //var promise = UserService.findUserByCredentials(username,password);
+            var promise = UserService.login(username, password)
             promise
                 .success(function(user){
                     if(user === '0')
@@ -38,7 +39,7 @@
 
     }
 
-    function RegisterController($location, UserService)
+    function RegisterController($location, UserService, $rootScope)
     {
         var vm = this;
         vm.register = register;
@@ -60,7 +61,7 @@
             }
 
             UserService
-                .createUser(user)
+                .register(user)
                 .success(function(userObj){
                     if(userObj == '0')
                     {
@@ -69,6 +70,7 @@
                     else
                     {
                         var userId = userObj._id;
+                        $rootScope.currentUser = userObj;
                         $location.url('/user/'+userId);
                     }
                 })
@@ -86,6 +88,7 @@
         var userId = $routeParams.uid;
         vm.updateProfile = updateProfile;
         vm.unregisterUser = unRegisterUser;
+        vm.logout = logout;
 
         var promise = UserService.findUserById(userId);
         promise
@@ -138,6 +141,14 @@
                 });
 
 
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .success(function () {
+                    $location.url("/login");
+                })
         }
 
 

@@ -10,17 +10,36 @@
     function UserService($http)
     {
         var api = {
-            createUser : createUser,
+            register : register,
             findUserById : findUserById,
             findUserByUsername : findUserByUsername,
             findUserByCredentials : findUserByCredentials,
             updateUser : updateUser,
-            deleteUser : deleteUser
+            deleteUser : deleteUser,
+            login: login,
+            checkLogin: checkLogin,
+            logout: logout
         };
         return api;
 
+        function logout() {
+            return $http.post("/api/logout");
+        }
 
-        function createUser(user)
+        function checkLogin() {
+            return $http.post("/api/checkLogin");
+        }
+
+        function login(username, password) {
+            var user ={
+                username: username,
+                password: password
+            };
+            return $http.post("/api/login", user);
+
+        }
+
+        function register(user)
         {
             var userObj = {
                 username: user.username,
