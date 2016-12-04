@@ -38,6 +38,8 @@ $(document).ready(function() {
         }
     }
 
+    addListener();
+
 
     // turn on bootstrap tooltips
     $('[data-toggle="tooltip"]').tooltip();
