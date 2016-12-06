@@ -18,10 +18,16 @@
             deleteUser : deleteUser,
             login: login,
             checkLogin: checkLogin,
-            logout: logout
+            logout: logout,
+            findUser: findUser
         };
         return api;
 
+        
+        function findUser() {
+            return $http.get("/api/user");
+        }
+        
         function logout() {
             return $http.post("/api/logout");
         }
@@ -67,9 +73,9 @@
 
         }
 
-        function updateUser(userId, user)
+        function updateUser(user)
         {
-            var url = "/api/user/" + userId;
+            var url = "/api/user/" + user._id;
             return $http.put(url, user);
         }
 

@@ -12,4 +12,5 @@ module.exports = function(app) {
     require("./services/widget.service.server")(app, model);
 
 
+
 }

@@ -28,7 +28,7 @@
                     if(user === '0')
                         vm.error = "No such user or the username,password does not match";
                     else
-                        $location.url("user/" + user._id);
+                        $location.url("user/");
                 })
                 .error(function (error) {
                     console.log(error);
@@ -71,7 +71,7 @@
                     {
                         var userId = userObj._id;
                         $rootScope.currentUser = userObj;
-                        $location.url('/user/'+userId);
+                        $location.url('/user/');
                     }
                 })
                 .error(function (error) {
@@ -90,18 +90,23 @@
         vm.unregisterUser = unRegisterUser;
         vm.logout = logout;
 
-        var promise = UserService.findUserById(userId);
-        promise
+        console.log("Logged");
+        UserService
+            .findUser()
             .success(function (user) {
-                vm.userId = userId;
-                vm.updateProfile = updateProfile;
+                // vm.userId = userId;
+                // vm.updateProfile = updateProfile;
 
+                console.log("user is");
+                console.log(user);
                 if(user != '0')
                 {
                     vm.user = user;
-                    // console.log(user.username);
-                    // console.log(user.firstName);
-                    // console.log(user.lastName);
+                    vm.userId = user._id;
+                    //vm.updateProfile = updateProfile;
+                     console.log(user.username);
+                     console.log(user.firstName);
+                     console.log(user.lastName);
                 }
             })
             .error(function (error) {
@@ -112,7 +117,7 @@
         {
 
             UserService
-                .updateUser(userId, vm.user)
+                .updateUser(vm.user)
                 .success(function (status) {
                     if(status == '0')
                     {
@@ -149,8 +154,12 @@
                 .success(function () {
                     $location.url("/login");
                 })
+                .error(function (error) {
+                   console.log(error);
+                   console.log(error);
+                   console.log(error);
+                });
         }
-
 
 
 

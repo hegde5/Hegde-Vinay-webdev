@@ -16,6 +16,7 @@ module.exports = function () {
         findAllWebsitesForUser: findAllWebsitesForUser,
         removeUser: removeUser,
         removeWebsiteFromUser : removeWebsiteFromUser,
+        findUserByFacebookId: findUserByFacebookId,
         setModel: setModel
     }
     return api;
@@ -91,6 +92,10 @@ module.exports = function () {
                 userObj.websites = userWebsites;
                 return userObj.save();
             })
+    }
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
     }
     
     

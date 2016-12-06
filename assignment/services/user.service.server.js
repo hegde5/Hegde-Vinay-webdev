@@ -6,8 +6,20 @@ module.exports = function (app, model) {
 
     var passport = require('passport');
     var LocalStrategy    = require('passport-local').Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
     var cookieParser = require('cookie-parser');
     var session = require('express-session');
+
+    //require('/fbenv');
+    var envvar = require('./../../facebookenv');
+    var facebookConfig = {
+        clientID: envvar.envvar.FACEBOOK_CLIENT_ID,
+        clientSecret: envvar.envvar.FACEBOOK_CLIENT_SECRET,
+        callbackURL: envvar.envvar.FACEBOOK_CALLBACK_URL,
+        profileFields: ['emails','name','displayName']
+    };
+    //console.log("ENV ");
+    //console.log(envvar.envvar.FACEBOOK_CALLBACK_URL);
 
     app.use(session({
         secret: 'this is the secret',
@@ -17,11 +29,20 @@ module.exports = function (app, model) {
     app.use(cookieParser());
     app.use(passport.initialize());
     app.use(passport.session());
+
     passport.use(new LocalStrategy(localStrategy));
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
     app.post('/api/login', passport.authenticate('local'), login);
+    app.get('/auth/facebook', passport.authenticate('facebook'));
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/assignment/#/user',
+            failureRedirect: '/assignment/#/login'
+        }));
+
     app.post('/api/user', register);
     app.post('/api/checkLogin', checkLogin);
     app.post('/api/logout', logout);
@@ -66,32 +87,55 @@ module.exports = function (app, model) {
 
             );
     }
-    
+
+    function facebookStrategy(token, refreshToken, profile, done) {
+        console.dir(profile);
+        model
+            .userModel
+            .findUserByFacebookId(profile.id)
+            .then(function (fbUser) {
+                    if (fbUser) {
+                        return done(null, fbUser);
+                    }
+                    else {
+                        var emailId = profile.emails[0].value;
+                        var username = emailId.split("@")[0];
+                        fbUser = {
+                            username: username,
+                            firstName: profile.name.givenName,
+                            lastName: profile.name.familyName,
+                            email: emailId,
+                            facebook: {
+                                id: profile.id,
+                                token: token
+                            }
+                        }
+                        model
+                            .userModel
+                            .createUser(fbUser)
+                            .then(function (user) {
+                                done(null, user);
+                            })
+                    }
+                });
+                // function(err) {
+                //     if (err) {
+                //         return done(err);
+                //     }
+                // }
+            // )
+            // .then(
+            //     function(user){
+            //         return done(null, user);
+            //     },
+            //     function(err){
+            //         if (err) { return done(err); }
+            //     }
+            // );
+    }
+
+
     function login(req, res) {
-        // var user = req.body;
-        // var username = user.username;
-        // var password = user.password;
-        //
-        // model
-        //     .userModel
-        //     .findUserByCredentials(username, password)
-        //     .then(
-        //         function (user) {
-        //             if(user)
-        //             {
-        //                 res.send(user);
-        //             }
-        //             else{
-        //                 res.send('0');
-        //             }
-        //
-        //         },
-        //         function (error) {
-        //             res.sendStatus(400).send(error);
-        //         }
-        //
-        //
-        //     );
         var user = req.user;
         res.send(user);
 
@@ -157,6 +201,11 @@ module.exports = function (app, model) {
         else if(query.username)
         {
             findUserByUsername(res,req);
+        }
+        else
+        {
+            var user = req.user;
+            res.send(req.user);
         }
 
     }
