@@ -49,15 +49,25 @@
             if(user === undefined)
             {
                 vm.error = "Please fill out all the fields!";
+                return;
             }
             else if(user.username === undefined || user.username === null)
+            {
                 vm.error = "Please enter a username";
+                return;
+            }
+
             else if(user.password === undefined || user.password === null)
+            {
                 vm.error = "Please enter a password";
+                return;
+            }
+
 
             else if(user.password != user.confirmPassword)
             {
                 vm.error = "Passwords do not match!";
+                return;
             }
 
             UserService
@@ -104,9 +114,6 @@
                     vm.user = user;
                     vm.userId = user._id;
                     //vm.updateProfile = updateProfile;
-                     console.log(user.username);
-                     console.log(user.firstName);
-                     console.log(user.lastName);
                 }
             })
             .error(function (error) {

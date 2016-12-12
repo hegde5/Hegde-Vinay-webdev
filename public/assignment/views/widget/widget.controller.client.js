@@ -97,7 +97,7 @@
 
         function createWidget(widgetType)
         {
-            console.log("order is " + vm.widgets.length);
+
             if(widgetType === "HEADER" || widgetType === "IMAGE" || widgetType === "HTML" || widgetType === "YOUTUBE" || widgetType === "TEXT")
             {
                 var widgetOrder = vm.widgets.length;
@@ -138,6 +138,11 @@
         function updateCurrentWidget()
         {
 
+            if(vm.widget === undefined || vm.widget.name === "" || vm.widget.name === undefined)
+            {
+                vm.error = "Please enter a Widget Name and Text";
+                return;
+            }
             WidgetService
                 .updateWidget(vm.wgid, vm.widget)
                 .success(function (status) {

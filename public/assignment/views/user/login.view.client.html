@@ -5,14 +5,28 @@
         {{model.error}}
     </div>
 
+
+    <form name="login">
     <input type="text"
+           name="username"
            ng-model = "model.username"
            class="form-control"
-           placeholder="Username"/>
+           placeholder="Username" required/>
+    <div class="validate">
+        <span class="alert-danger" role="alert" ng-show="login.username.$touched && login.username.$invalid">
+            Username is required
+        </span>
+    </div>
     <input type="password"
            ng-model = "model.password"
+           name="password"
            class="form-control"
-           placeholder="Password"/>
+           placeholder="Password" required/>
+     <div class="validate">
+        <span class="alert-danger" role="alert" ng-show="login.password.$touched && login.password.$invalid">
+            Password is required
+        </span>
+     </div>
     <a class="btn btn-primary btn-block glphi-white"
        ng-click="model.login(model.username,model.password)">Login</a>
 
@@ -23,4 +37,5 @@
 
     <a class="btn btn-success btn-block glphi-white"
        href="#/register">Register</a>
+    </form>
 </div>

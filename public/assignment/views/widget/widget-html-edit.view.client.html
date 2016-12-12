@@ -20,7 +20,18 @@
 
 <div class="container-fluid">
     <br/>
-    <form>
+    <div class="alert alert-danger" ng-show="model.error" role="alert">
+        {{model.error}}
+    </div>
+    <form name="htmledit">
+        <label for="name">Name</label>
+        <input ng-model="model.widget.name" id="name" name="htmlName" class="form-control" required/>
+        <div class="validate">
+                <span class="alert-danger" role="alert" ng-show="htmledit.htmlName.$touched && htmledit.htmlName.$invalid">
+                            Widget Name is required
+                </span>
+        </div>
+
         <div class="form-group" ng-model="model.widget.text"
              text-angular
              ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],

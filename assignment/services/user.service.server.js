@@ -4,6 +4,7 @@
 
 module.exports = function (app, model) {
 
+    var bcrypt = require("bcrypt-nodejs");
     var passport = require('passport');
     var LocalStrategy    = require('passport-local').Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
@@ -13,11 +14,14 @@ module.exports = function (app, model) {
     //require('/fbenv');
     var envvar = require('./../../facebookenv');
     var facebookConfig = {
-        clientID: envvar.envvar.FACEBOOK_CLIENT_ID,
-        clientSecret: envvar.envvar.FACEBOOK_CLIENT_SECRET,
-        callbackURL: envvar.envvar.FACEBOOK_CALLBACK_URL,
+        clientID: process.env.FACEBOOK_CLIENT_ID || envvar.envvar.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET ||envvar.envvar.FACEBOOK_CLIENT_SECRET,
+        callbackURL: process.env.FACEBOOK_CALLBACK_URL || envvar.envvar.FACEBOOK_CALLBACK_URL,
         profileFields: ['emails','name','displayName']
     };
+
+
+
     //console.log("ENV ");
     //console.log(envvar.envvar.FACEBOOK_CALLBACK_URL);
 
@@ -68,11 +72,12 @@ module.exports = function (app, model) {
 
         model
             .userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function (user) {
-                    if(user)
+                    if(user && bcrypt.compareSync(password, user.password))
                     {
+                        // console.dir(user);
                         return done(null, user);
                     }
                     else{
@@ -118,20 +123,6 @@ module.exports = function (app, model) {
                             })
                     }
                 });
-                // function(err) {
-                //     if (err) {
-                //         return done(err);
-                //     }
-                // }
-            // )
-            // .then(
-            //     function(user){
-            //         return done(null, user);
-            //     },
-            //     function(err){
-            //         if (err) { return done(err); }
-            //     }
-            // );
     }
 
 
@@ -164,6 +155,8 @@ module.exports = function (app, model) {
     
     function register(req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
+
         delete user.confirmPassword;
         model
             .userModel
@@ -180,7 +173,7 @@ module.exports = function (app, model) {
                      }
 
                   });
-                  res.send(newUser);
+                  //res.send(newUser);
               },
                 function(error) {
                   res.sendStatus(400).send(error);
@@ -205,7 +198,7 @@ module.exports = function (app, model) {
         else
         {
             var user = req.user;
-            res.send(req.user);
+            res.send(user);
         }
 
     }
@@ -215,13 +208,16 @@ module.exports = function (app, model) {
     {
         var username = req.query.username;
 
+        console.log(username);
         model
             .userModel
             .findUserByUsername(username)
             .then(
                 function (users) {
                     if(users){
-                        res.json(users[0]);
+
+                        console.log(users);
+                        res.json(users);
                     }
                     else{
                         res.send('0');

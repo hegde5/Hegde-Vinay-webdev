@@ -54,11 +54,13 @@
 
         function createPage()
         {
-            if(vm.currentPage === undefined)
+
+            if(vm.currentPage === undefined || vm.currentPage.name === undefined || vm.currentPage.name === "")
             {
                 vm.error = "Please enter a Page Name";
                 return;
             }
+            console.log(vm.currentPage);
 
             PageService
                 .createPage(vm.currentWebsiteId, vm.currentPage)
@@ -136,6 +138,12 @@
 
         function updateCurrentPage()
         {
+            if(vm.websitePage === undefined || vm.websitePage.name === "" || vm.websitePage.name === undefined)
+            {
+                vm.error = "Please enter a Page Name";
+                return;
+            }
+
             PageService
                 .updatePage(vm.websitePage._id, vm.websitePage)
                 .success(function (status) {

@@ -19,10 +19,18 @@
 
 <div class="container-fluid">
     <br/><br/>
-    <form>
+    <div class="alert alert-danger" ng-show="model.error" role="alert">
+        {{model.error}}
+    </div>
+    <form name="youtubeWidget">
         <div class="form-group">
             <label for="Name">Name</label>
-            <input type="text" ng-model="model.widget.name" class="form-control" id="Name" placeholder="Name">
+            <input type="text" ng-model="model.widget.name" class="form-control" id="Name" placeholder="Name" name="youtubeName" required>
+        </div>
+        <div class="validate">
+            <span class="alert-danger" role="alert" ng-show="youtubeWidget.youtubeName.$touched && youtubeWidget.youtubeName.$invalid">
+                        Widget Name is required
+            </span>
         </div>
 
         <div class="form-group">

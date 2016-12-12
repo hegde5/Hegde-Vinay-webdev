@@ -3,20 +3,41 @@
     <div class="alert alert-danger" ng-show="model.error" role="alert">
         {{model.error}}
     </div>
+    <form name="register">
     <input type="text"
+           name="username"
            class="form-control"
            ng-model="model.user.username"
-           placeholder="Username"/>
-    <input type="password"
+           placeholder="Username" required/>
+    <div class="validate">
+        <span class="alert-danger" role="alert" ng-show="register.username.$touched && register.username.$invalid">
+            Username is required
+        </span>
+    </div>
+
+        <input type="password"
            class="form-control"
+           name="password"
            ng-model="model.user.password"
-           placeholder="Password"/>
+           placeholder="Password" required/>
+        <div class="validate">
+            <span class="alert-danger" role="alert" ng-show="register.password.$touched && register.password.$invalid">
+                Password is required
+            </span>
+        </div>
     <input type="password"
            class="form-control"
+           name="verifyPassword"
            ng-model="model.user.confirmPassword"
-           placeholder="Confirm password"/>
+           placeholder="Confirm password" required/>
+    <div class="validate">
+        <span class="alert-danger" role="alert" ng-show="register.verifyPassword.$touched && register.verifyPassword.$invalid">
+            Password is required
+        </span>
+    </div>
     <a class="btn btn-primary btn-block glphi-white"
        ng-click="model.register(model.user)">Register</a>
     <a class="btn btn-danger  btn-block glphi-white"
        href="#/login">Cancel</a>
+    </form>
 </div>

@@ -55,11 +55,12 @@
 
         function createWebsite()
         {
-            if(vm.website === undefined)
+            if(vm.website === undefined || vm.website.name === "" || vm.website.name === undefined)
             {
                 vm.error = "Please enter a Website Name";
                 return;
             }
+
 
             WebsiteService
                 .createWebsite(vm.userId, vm.website)
@@ -88,13 +89,12 @@
         vm.userId = userId;
         var websiteId = $routeParams.wid;
         vm.currentWebsiteId = websiteId;
-        //var userWebsites = WebsiteService.findWebsitesByUser(userId);
-        //vm.userWebsites = userWebsites;
         vm.deleteCurrentWebsite = deleteCurrentWebsite;
         vm.updateCurrentWebsite = updateCurrentWebsite;
 
 
         function init() {
+
 
             WebsiteService
                 .findWebsitesByUser(userId)
@@ -138,7 +138,15 @@
 
         function updateCurrentWebsite()
         {
-            console.log("USer website id is " + vm.userWebsite._id);
+
+
+            if(vm.userWebsite === undefined || vm.userWebsite.name === "" || vm.userWebsite.name === undefined)
+            {
+
+                vm.error = "Please enter a Website Name";
+                return;
+            }
+
             WebsiteService
                 .updateWebsite(vm.userWebsite._id, vm.userWebsite)
                 .success(function (status) {

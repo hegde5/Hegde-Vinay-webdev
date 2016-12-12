@@ -1,4 +1,3 @@
-<script src="../../../../assignment/models/model.server.js"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="header">
@@ -22,13 +21,30 @@
 
 <div class="container-fluid">
     <br/>
-    <form>
+    <div class="alert alert-danger" ng-show="model.error" role="alert">
+        {{model.error}}
+    </div>
+    <form name="textWidgetForm">
         <div class="form-group">
+
+            <label for="name">Name</label>
+            <input ng-model="model.widget.name" id="name" name="textName" class="form-control" required/>
+            <div class="validate">
+                <span class="alert-danger" role="alert" ng-show="textWidgetForm.textName.$touched && textWidgetForm.textName.$invalid">
+                            Widget Name is required
+                </span>
+            </div>
+
             <label for="text">Text</label>
             <input ng-model="model.widget.text" id="text" class="form-control" />
 
             <label for="rows">Rows</label>
-            <input ng-model="model.widget.rows" id="rows" class="form-control"  type="number" />
+            <input ng-model="model.widget.rows" id="rows" class="form-control"  name="numrows" type="number" required/>
+            <div class="validate">
+                <span class="alert-danger" role="alert" ng-show="textWidgetForm.numrows.$touched && textWidgetForm.numrows.$invalid">
+                            Rows is required
+                </span>
+            </div>
 
             <label for="placeholder">Placeholder</label>
             <input ng-model="model.widget.placeHolder" id="placeholder" class="form-control"  />

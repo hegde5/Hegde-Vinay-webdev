@@ -80,7 +80,8 @@ module.exports = function () {
                     _id: widget._id
                 },
                 {
-                    text: widget.text
+                    text: widget.text,
+                    name: widget.name
                 }
             )
         }
@@ -108,7 +109,8 @@ module.exports = function () {
                     text: widget.text,
                     rows: widget.rows,
                     formatted: widget.formatted,
-                    placeHolder: widget.placeHolder
+                    placeHolder: widget.placeHolder,
+                    name: widget.name
 
                 }
             )
